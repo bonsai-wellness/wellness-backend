@@ -1,6 +1,9 @@
 // Librerias
 import express from "express";
 
+// Rutas
+import authRutas from "./routes/auth.routes";
+
 // Inicializamos app
 const app = express();
 
@@ -11,9 +14,7 @@ const PORT = 5001
 app.use(express.json()); // Middleware to parse req.body to a json format 
 
 // Rutas
-app.get("/", (_req, res) => {
-	res.send("Hello World!");
-});
+app.use(authRutas);
 
 app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}`);
