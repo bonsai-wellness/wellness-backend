@@ -4,8 +4,8 @@ import cors from "cors";
 
 // Route imports
 import authRouter from "./routes/auth.routes";
+import espacioRouter from "./routes/espacio.routes";
 
-// Inicializamos app
 const app = express();
 
 if (!process.env.PORT) {
@@ -23,7 +23,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use(authRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/espacio", espacioRouter);
 
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
