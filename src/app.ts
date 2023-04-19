@@ -1,21 +1,31 @@
-// Librerias
+// Libraries
 import express from "express";
+import cors from "cors";
 
-// Rutas
-import authRutas from "./routes/auth.routes";
+// Route imports
+import authRouter from "./routes/auth.routes";
+import espacioRouter from "./routes/espacio.routes";
 
-// Inicializamos app
 const app = express();
 
-// Constantes
-const PORT = 5001
+if (!process.env.PORT) {
+	console.log('Specify PORT on .env file');
+  process.exit(1);
+}
+
+const PORT: number = parseInt(process.env.PORT as string, 10);
 
 // Middlewares
 app.use(express.json()); // Middleware to parse req.body to a json format 
 
-// Rutas
-app.use(authRutas);
+// Config
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use("/api/auth", authRouter);
+app.use("/api/espacio", espacioRouter);
 
 app.listen(PORT, () => {
-	console.log(`Example app listening on port ${PORT}`);
+	console.log(`Listening on port ${PORT}`);
 });
