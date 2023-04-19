@@ -27,7 +27,8 @@ Requires `.env` file with following parameters:
 | READ  | GET | /api/espacios | Returns json with all spaces in DB |
 
 ## Database Diagram
-![bonsai-db](https://user-images.githubusercontent.com/69658875/232966559-16a66688-f55e-4df2-a83d-cc9c5d4ee878.png)
+![bonsai-db (1)](https://user-images.githubusercontent.com/69658875/232967100-f83660d5-8e8f-4fc9-be00-0c8538e598c5.png)
+
 
 
 ## Example with endpoint: `/api/espacios`
