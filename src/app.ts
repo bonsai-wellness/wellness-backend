@@ -1,6 +1,7 @@
 // Libraries
 import express from "express";
 import cors from "cors";
+require("dotenv").config();
 
 // Route imports
 import authRouter from "./routes/auth.routes";
