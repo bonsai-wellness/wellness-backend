@@ -7,6 +7,7 @@ require("dotenv").config();
 import authRouter from "./routes/auth.routes";
 import espacioRouter from "./routes/espacio.routes";
 import espacioPadreRouter from "./routes/espacioPadre.routes";
+import moment from "moment-timezone";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use(express.json()); // Middleware to parse req.body to a json format
 // Config
 app.use(cors());
 app.use(express.json());
+app.use("/public", express.static("public"));
+moment.tz.setDefault("America/Mexico_City");
 
 // Routes
 app.use("/api/auth", authRouter);
