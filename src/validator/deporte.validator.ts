@@ -29,7 +29,7 @@ export const validatorDeporte = (
     });
   }
   // Validation (file)
-  if (!req.files?.length) {
+  if (!req.file) {
     return res.status(400).json({ error: "No file (imagen) was recieved" });
   }
   next();
