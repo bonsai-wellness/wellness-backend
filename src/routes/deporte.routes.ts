@@ -30,9 +30,6 @@ deporteRouter.post(
       if (err instanceof MulterError) {
         return res.status(500).json({ error: "error uploading file" });
       }
-      if (!req.files?.length) {
-        return res.status(400).json({ error: "No file (imagen) was recieved" });
-      }
       return res.status(500).json(err.message);
     }
   }
