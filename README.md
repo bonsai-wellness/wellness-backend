@@ -37,14 +37,14 @@ Requires `.env` file with following parameters:
 | CREATE  | POST | /api/espacio-deporte | Creates **EspacioDeporte** row |
 | READ  | GET | /api/espacio-deporte/:id | Returns `JSON` with all **Deporte** rows with given deporte_id |
 
-# Reference
+## Reference
 
-## Get list with all Espacio rows
-### Request
+### Get list with all Espacio rows
+#### Request
 ```http
 GET /api/espacio
 ```
-### Response `application/json`
+#### Response `application/json`
 ```JSON
 [
     {
@@ -65,12 +65,12 @@ GET /api/espacio
 ]
 ```
 
-## Create Espacio
-### Request
+### Create Espacio
+#### Request
 ```http
 POST /api/espacio
 ```
-#### `multipart/form-data`
+##### `multipart/form-data`
 | Name | Value Type |
 | ---- | ---------- |
 | name | `string` | 
@@ -83,7 +83,7 @@ POST /api/espacio
 | espacio_padre_id | `int` references EspacioPadre |
 | is_active | 'T' || 'F' as `string` |
 | imagen | .png `file` |
-### Response `application/json`
+#### Response `application/json`
 ``` JSON
 {
     "espacio_id": 46,
