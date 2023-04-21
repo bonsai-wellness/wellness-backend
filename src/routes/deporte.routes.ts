@@ -12,6 +12,15 @@ import {
 
 const deporteRouter = express.Router();
 
+deporteRouter.get("/", async (_: Request, res: Response) => {
+  try {
+    const espacios = await DeporteController.listDeportes();
+    return res.status(200).json(espacios);
+  } catch (err: any) {
+    return res.status(500).json(err.message);
+  }
+});
+
 deporteRouter.post(
   "/",
   UploadMiddleware.uploadImage,
