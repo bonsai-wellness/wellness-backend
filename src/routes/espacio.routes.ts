@@ -5,6 +5,7 @@ import * as EspacioController from "../controller/espacio.controller";
 import * as UploadMiddleware from "../middleware/upload.middleware";
 import { stringToTime } from "../utils/stringToDate.utils";
 import { EspacioCreate } from "../types";
+import { param, validationResult } from "express-validator";
 import {
   validatorEspacioBody,
   validatorEspacio,
@@ -20,6 +21,25 @@ espacioRouter.get("/", async (_: Request, res: Response) => {
     return res.status(500).json(err.message);
   }
 });
+
+espacioRouter.get(
+  "/espacio-padre/:id",
+  param("id").isInt({ min: 1 }),
+  async (req: Request, res: Response) => {
+    // Validation (params)
+    const errors = validationResult(req);
+    if (!errors.isEmpty() && req.file?.path) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const id = parseInt(req.params.id);
+    try {
+      const espacios = await EspacioController.espaciosByPadreId(id);
+      return res.status(200).json(espacios);
+    } catch (err: any) {
+      return res.status(500).json(err.message);
+    }
+  }
+);
 
 espacioRouter.post(
   "/",
