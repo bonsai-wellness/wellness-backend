@@ -35,3 +35,11 @@ app.use("/api/espacio-padre", espacioPadreRouter);
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+function signalHandler() {
+  process.exit();
+}
+
+process.on("SIGINT", signalHandler);
+process.on("SIGTERM", signalHandler);
+process.on("SIGQUIT", signalHandler);
