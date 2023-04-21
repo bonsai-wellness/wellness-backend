@@ -1,11 +1,14 @@
 // Libraries
 import express from "express";
 import cors from "cors";
+require("dotenv").config();
 
 // Route imports
 import authRouter from "./routes/auth.routes";
 import espacioRouter from "./routes/espacio.routes";
 import espacioPadreRouter from "./routes/espacioPadre.routes";
+import moment from "moment-timezone";
+import deporteRouter from "./routes/deporte.routes";
 
 const app = express();
 
@@ -22,12 +25,23 @@ app.use(express.json()); // Middleware to parse req.body to a json format
 // Config
 app.use(cors());
 app.use(express.json());
+app.use("/public", express.static("public"));
+moment.tz.setDefault("America/Mexico_City");
 
 // Routes
 app.use("/api/auth", authRouter);
 app.use("/api/espacio", espacioRouter);
 app.use("/api/espacio-padre", espacioPadreRouter);
+app.use("/api/deporte", deporteRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+function signalHandler() {
+  process.exit();
+}
+
+process.on("SIGINT", signalHandler);
+process.on("SIGTERM", signalHandler);
+process.on("SIGQUIT", signalHandler);
