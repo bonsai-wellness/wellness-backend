@@ -7,3 +7,15 @@ export const createEspacioDeporte = async (
 ): Promise<EspacioDeporte> => {
   return db.espacioDeporte.create({ data: espacioDeporte });
 };
+
+export const espaciosByDeporteId = async (id: number): Promise<any> => {
+  const data = await db.espacioDeporte.findMany({
+    select: {
+      espacio: true,
+    },
+    where: {
+      deporte_id: id,
+    },
+  });
+  return data.map((item: any) => item.espacio);
+};
