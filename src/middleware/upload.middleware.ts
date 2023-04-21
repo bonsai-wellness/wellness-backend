@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("image");
+const upload = multer({ storage: storage }).single("imagen");
 
 export function uploadImage(req: Request, res: Response, next: NextFunction) {
   upload(req, res, function (err: any) {

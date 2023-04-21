@@ -12,6 +12,19 @@ export const listEspacios = async (): Promise<Espacio[]> => {
   return data;
 };
 
+export const espaciosByPadreId = async (id: number): Promise<Espacio[]> => {
+  const data = await db.espacio.findMany({
+    where: {
+      espacio_padre_id: id,
+    },
+  });
+  const ip = serverAddress();
+  data.forEach((item) => {
+    item.imagen = ip + item.imagen;
+  });
+  return data;
+};
+
 export const createEspacio = async (
   espacio: EspacioCreate
 ): Promise<Espacio> => {
