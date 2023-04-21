@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.routes";
 import espacioRouter from "./routes/espacio.routes";
 import espacioPadreRouter from "./routes/espacioPadre.routes";
 import moment from "moment-timezone";
+import deporteRouter from "./routes/deporte.routes";
 
 const app = express();
 
@@ -31,6 +32,7 @@ moment.tz.setDefault("America/Mexico_City");
 app.use("/api/auth", authRouter);
 app.use("/api/espacio", espacioRouter);
 app.use("/api/espacio-padre", espacioPadreRouter);
+app.use("/api/deporte", deporteRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
