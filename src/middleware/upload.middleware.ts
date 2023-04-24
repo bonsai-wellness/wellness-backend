@@ -12,12 +12,26 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("imagen");
+const upload = multer({
+  storage: storage,
+  fileFilter: (_: Request, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg formats allowed."));
+    }
+  },
+}).single("imagen");
 
 export function uploadImage(req: Request, res: Response, next: NextFunction) {
   upload(req, res, function (err: any) {
     if (err) {
-      return next(err);
+      return next(err.message);
     }
     next();
   });

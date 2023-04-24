@@ -1,28 +1,17 @@
 import { Espacio } from "@prisma/client";
 import { db } from "../utils/db.server";
 import { EspacioCreate } from "../types";
-import { serverAddress } from "../utils/serverAddress.utils";
 
 export const listEspacios = async (): Promise<Espacio[]> => {
-  const ip = serverAddress();
-  const data = await db.espacio.findMany();
-  data.forEach((item) => {
-    item.imagen = ip + item.imagen;
-  });
-  return data;
+  return db.espacio.findMany();
 };
 
 export const espaciosByPadreId = async (id: number): Promise<Espacio[]> => {
-  const data = await db.espacio.findMany({
+  return db.espacio.findMany({
     where: {
       espacio_padre_id: id,
     },
   });
-  const ip = serverAddress();
-  data.forEach((item) => {
-    item.imagen = ip + item.imagen;
-  });
-  return data;
 };
 
 export const createEspacio = async (

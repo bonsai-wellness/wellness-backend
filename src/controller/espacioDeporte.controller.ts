@@ -1,5 +1,5 @@
 import { db } from "../utils/db.server";
-import { EspacioDeporte } from "@prisma/client";
+import { Espacio, EspacioDeporte } from "@prisma/client";
 import { EspacioDeporteCreate } from "../types";
 
 export const createEspacioDeporte = async (
@@ -8,7 +8,7 @@ export const createEspacioDeporte = async (
   return db.espacioDeporte.create({ data: espacioDeporte });
 };
 
-export const espaciosByDeporteId = async (id: number): Promise<any> => {
+export const espaciosByDeporteId = async (id: number): Promise<Espacio[]> => {
   const data = await db.espacioDeporte.findMany({
     select: {
       espacio: true,

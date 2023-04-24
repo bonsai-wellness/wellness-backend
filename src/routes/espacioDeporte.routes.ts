@@ -51,7 +51,6 @@ espacioDeporteRouter.post(
       );
       return res.status(201).json(newEspacioPadre);
     } catch (err: any) {
-      console.log(err);
       return res.status(500).json(err.message);
     }
   }
