@@ -13,8 +13,9 @@ model User {
   updated_at      DateTime          @updatedAt
   email           String            @unique
   password        String
-  name            String
-  is_admin        Boolean
+  first_name      String
+  last_name       String
+  is_admin        String            @db.VarChar(1)
   ReservationUser ReservationUser[]
 }
 
@@ -139,6 +140,7 @@ model WellnessGym {
   created_at       DateTime           @default(now())
   updated_at       DateTime           @updatedAt
   aforo_actual     Int
+  capacidad_max    Int
   WellnessLog      WellnessLog[]
   WellnessSchedule WellnessSchedule[]
 }
