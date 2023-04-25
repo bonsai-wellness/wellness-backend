@@ -10,6 +10,7 @@ import espacioPadreRouter from "./routes/espacioPadre.routes";
 import moment from "moment-timezone";
 import deporteRouter from "./routes/deporte.routes";
 import espacioDeporteRouter from "./routes/espacioDeporte.routes";
+import torneoRouter from "./routes/torneo.routes";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/espacio", espacioRouter);
 app.use("/api/espacio-padre", espacioPadreRouter);
 app.use("/api/deporte", deporteRouter);
 app.use("/api/espacio-deporte", espacioDeporteRouter);
+app.use("/api/torneo", torneoRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
