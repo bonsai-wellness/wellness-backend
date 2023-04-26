@@ -2,13 +2,16 @@ import { Torneo } from "@prisma/client";
 import { db } from "../utils/db.server";
 // import { TorneoCreate } from "../types";
 
-export const listTorneos = async (): Promise<any> => {  
-  // return db.torneo.findMany({      
-  //   include: {
-  //     deporte: true,
-  //   },
-  // });
-  return db.torneo.findMany();
+export const listTorneos = async (): Promise<Torneo[]> => {  
+  return db.torneo.findMany({      
+    include: {
+      deporte: {
+        select: {
+          name: true
+        }
+      }
+    },
+  });  
 };
 
 // export const espaciosByPadreId = async (id: number): Promise<Torneo[]> => {
