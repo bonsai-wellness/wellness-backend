@@ -2,53 +2,51 @@ import express from "express";
 import type { Request, Response } from "express";
 
 import * as TorneoController from "../controller/torneo.controller";
-// import * as UploadMiddleware from "../middleware/upload.middleware";
-// import { stringToTime } from "../utils/stringToDate.utils";
-// import { TorneoCreate } from "../types";
+import * as UploadMiddleware from "../middleware/upload.middleware";
+import { stringToTime } from "../utils/stringToDate.utils";
+import { TorneoCreate } from "../types";
 // import { param, validationResult } from "express-validator";
 // import {
-//   validatorEspacioBody,
-//   validatorEspacio,
+// 	validatorEspacioBody,
+// 	validatorEspacio,
 // } from "../validator/espacio.validator";
 
 const torneoRouter = express.Router();
 
 torneoRouter.get("/", async (_: Request, res: Response) => {
-  try {
-    const torneos = await TorneoController.listTorneos();
-    return res.status(200).json(torneos);
-  } catch (err: any) {
-    return res.status(500).json(err.message);
-  }
+	try {
+		const torneos = await TorneoController.listTorneos();
+		return res.status(200).json(torneos);
+	} catch (err: any) {
+		return res.status(500).json(err.message);
+	}
 });
 
-// espacioRouter.post(
-//   "/",
-//   UploadMiddleware.uploadImage,
-//   validatorEspacioBody,
-//   validatorEspacio,
-//   async (req: Request, res: Response) => {
-//     // Controller
-//     try {
-//       req.body.imagen = req.file?.path;
-//       const espacio: EspacioCreate = {
-//         name: req.body.name as string,
-//         code: req.body.code as string,
-//         capacity: parseInt(req.body.capacity),
-//         time_max: parseInt(req.body.time_max),
-//         details: req.body.details as string,
-//         espacio_padre_id: parseInt(req.body.espacio_padre_id),
-//         open_at: stringToTime(req.body.open_at as string),
-//         close_at: stringToTime(req.body.close_at as string),
-//         is_active: req.body.is_active as string,
-//         imagen: req.body.imagen as string,
-//       };
-//       const newEspacio = await EspacioController.createEspacio(espacio);
-//       return res.status(201).json(newEspacio);
-//     } catch (err: any) {
-//       return res.status(500).json(err.message);
-//     }
-//   }
-// );
+torneoRouter.post(
+	"/",
+	UploadMiddleware.uploadImage,
+	async (req: Request, res: Response) => {
+		// Controller
+		try {
+			req.body.imagen = req.file?.path;
+			const torneo: TorneoCreate = {
+				name: req.body.name as string,
+				evento: req.body.evento as string,
+				description: req.body.description as string,
+				url: req.body.url as string,
+				date_start: stringToTime(req.body.date_start as string),
+				date_end: stringToTime(req.body.date_end as string),
+				location: req.body.location as string,
+				imagen: req.body.imagen as string,
+				is_active: req.body.is_active as string,
+				deporte_id: parseInt(req.body.deporte_id),
+			};
+			const newTorneo = await TorneoController.createTorneo(torneo);
+			return res.status(201).json(newTorneo);
+		} catch (err: any) {
+			return res.status(500).json(err.message);
+		}
+	}
+);
 
 export default torneoRouter;
