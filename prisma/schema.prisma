@@ -20,42 +20,20 @@ model User {
 }
 
 model Torneo {
-  torneo_id     Int             @id @default(autoincrement())
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @updatedAt
-  name          String
-  evento        String
-  description   String
-  url           String
-  date_start    DateTime        @db.Date
-  date_end      DateTime        @db.Date
-  location      String
-  imagen        String
-  is_active     String          @db.VarChar(1)
-  TorneoDeporte TorneoDeporte[]
-  TorneoEspacio TorneoEspacio[]
-}
-
-model TorneoDeporte {
-  deporte    Deporte  @relation(fields: [deporte_id], references: [deporte_id])
-  torneo     Torneo   @relation(fields: [torneo_id], references: [torneo_id])
-  deporte_id Int
-  torneo_id  Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@id([deporte_id, torneo_id])
-}
-
-model TorneoEspacio {
-  espacioPadre     EspacioPadre @relation(fields: [espacio_padre_id], references: [espacio_padre_id])
-  torneo           Torneo       @relation(fields: [torneo_id], references: [torneo_id])
-  espacio_padre_id Int
-  torneo_id        Int
-  created_at       DateTime     @default(now())
-  updated_at       DateTime     @updatedAt
-
-  @@id([espacio_padre_id, torneo_id])
+  torneo_id   Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  name        String
+  evento      String
+  description String
+  url         String
+  date_start  DateTime @db.Date
+  date_end    DateTime @db.Date
+  location    String
+  imagen      String
+  is_active   String   @db.VarChar(1)
+  deporte     Deporte  @relation(fields: [deporte_id], references: [deporte_id])
+  deporte_id  Int
 }
 
 model Aviso {
@@ -69,15 +47,14 @@ model Aviso {
 }
 
 model EspacioPadre {
-  espacio_padre_id Int             @id @default(autoincrement())
-  created_at       DateTime        @default(now())
-  updated_at       DateTime        @updatedAt
+  espacio_padre_id Int       @id @default(autoincrement())
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
   name             String
   code             String
   map_url          String
-  is_active        String          @db.VarChar(1)
+  is_active        String    @db.VarChar(1)
   Espacio          Espacio[]
-  TorneoEspacio    TorneoEspacio[]
 }
 
 model Espacio {
@@ -106,8 +83,8 @@ model Deporte {
   updated_at     DateTime         @updatedAt
   name           String
   imagen         String
+  Torneo         Torneo[]
   EspacioDeporte EspacioDeporte[]
-  TorneoDeporte  TorneoDeporte[]
 }
 
 model EspacioDeporte {
