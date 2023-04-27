@@ -30,25 +30,8 @@ CREATE TABLE [dbo].[Torneo] (
     [location] NVARCHAR(1000) NOT NULL,
     [imagen] NVARCHAR(1000) NOT NULL,
     [is_active] VARCHAR(1) NOT NULL,
-    CONSTRAINT [Torneo_pkey] PRIMARY KEY CLUSTERED ([torneo_id])
-);
-
--- CreateTable
-CREATE TABLE [dbo].[TorneoDeporte] (
     [deporte_id] INT NOT NULL,
-    [torneo_id] INT NOT NULL,
-    [created_at] DATETIME2 NOT NULL CONSTRAINT [TorneoDeporte_created_at_df] DEFAULT CURRENT_TIMESTAMP,
-    [updated_at] DATETIME2 NOT NULL,
-    CONSTRAINT [TorneoDeporte_pkey] PRIMARY KEY CLUSTERED ([deporte_id],[torneo_id])
-);
-
--- CreateTable
-CREATE TABLE [dbo].[TorneoEspacio] (
-    [espacio_padre_id] INT NOT NULL,
-    [torneo_id] INT NOT NULL,
-    [created_at] DATETIME2 NOT NULL CONSTRAINT [TorneoEspacio_created_at_df] DEFAULT CURRENT_TIMESTAMP,
-    [updated_at] DATETIME2 NOT NULL,
-    CONSTRAINT [TorneoEspacio_pkey] PRIMARY KEY CLUSTERED ([espacio_padre_id],[torneo_id])
+    CONSTRAINT [Torneo_pkey] PRIMARY KEY CLUSTERED ([torneo_id])
 );
 
 -- CreateTable
@@ -183,16 +166,7 @@ CREATE TABLE [dbo].[WellnessLog] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[TorneoDeporte] ADD CONSTRAINT [TorneoDeporte_deporte_id_fkey] FOREIGN KEY ([deporte_id]) REFERENCES [dbo].[Deporte]([deporte_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE [dbo].[TorneoDeporte] ADD CONSTRAINT [TorneoDeporte_torneo_id_fkey] FOREIGN KEY ([torneo_id]) REFERENCES [dbo].[Torneo]([torneo_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE [dbo].[TorneoEspacio] ADD CONSTRAINT [TorneoEspacio_espacio_padre_id_fkey] FOREIGN KEY ([espacio_padre_id]) REFERENCES [dbo].[EspacioPadre]([espacio_padre_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE [dbo].[TorneoEspacio] ADD CONSTRAINT [TorneoEspacio_torneo_id_fkey] FOREIGN KEY ([torneo_id]) REFERENCES [dbo].[Torneo]([torneo_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[Torneo] ADD CONSTRAINT [Torneo_deporte_id_fkey] FOREIGN KEY ([deporte_id]) REFERENCES [dbo].[Deporte]([deporte_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[Espacio] ADD CONSTRAINT [Espacio_espacio_padre_id_fkey] FOREIGN KEY ([espacio_padre_id]) REFERENCES [dbo].[EspacioPadre]([espacio_padre_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
