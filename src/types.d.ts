@@ -1,4 +1,12 @@
-import { Deporte, Espacio, EspacioPadre, EspacioDeporte, Torneo } from "@prisma/client";
+import {
+  Deporte,
+  Espacio,
+  EspacioPadre,
+  EspacioDeporte,
+  Torneo,
+  PuntoImportante,
+  EspacioPuntoImportante,
+} from "@prisma/client";
 
 export type EspacioCreate = Omit<
   Espacio,
@@ -22,5 +30,15 @@ export type EspacioDeporteCreate = Omit<
 
 export type TorneoCreate = Omit<
   Torneo,
-  "torneo_id" | "created_at" | "updated_at" 
+  "torneo_id" | "created_at" | "updated_at"
+>;
+
+export type PuntoImportanteCreate = Omit<
+  PuntoImportante,
+  "punto_importante_id" | "created_at" | "updated_at"
+>;
+
+export type EspacioPuntoImportanteCreate = Omit<
+  EspacioPuntoImportante,
+  "created_at" | "updated_at"
 >;
