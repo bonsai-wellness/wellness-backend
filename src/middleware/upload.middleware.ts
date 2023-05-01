@@ -31,8 +31,8 @@ const upload = multer({
 export function uploadImage(req: Request, res: Response, next: NextFunction) {
   upload(req, res, function (err: any) {
     if (err) {
-      return next(err.message);
+      return res.status(400).json(err.message);
     }
-    next();
+    return next();
   });
 }
