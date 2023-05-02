@@ -103,7 +103,7 @@ model PuntoImportante {
   punto_importante_id    Int                      @id @default(autoincrement())
   created_at             DateTime                 @default(now())
   updated_at             DateTime                 @updatedAt
-  name                   Int
+  name                   String
   EspacioPuntoImportante EspacioPuntoImportante[]
 }
 
