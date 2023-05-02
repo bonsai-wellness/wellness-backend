@@ -49,4 +49,14 @@ torneoRouter.post(
 	}
 );
 
+torneoRouter.delete("/delete/:id", async(req: Request, res: Response) => {
+	const id = parseInt(req.params.id);
+	try {
+		const deletedTorneo = await TorneoController.deleteTorneo(id);
+		return res.status(200).json(deletedTorneo);
+	} catch (err: any) {
+		return res.status(500).json(err.message);
+	}
+});
+
 export default torneoRouter;
