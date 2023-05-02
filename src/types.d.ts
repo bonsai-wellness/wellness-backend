@@ -6,6 +6,7 @@ import {
   Torneo,
   PuntoImportante,
   EspacioPuntoImportante,
+  WellnessLog,
 } from "@prisma/client";
 
 export type EspacioCreate = Omit<
@@ -41,4 +42,9 @@ export type PuntoImportanteCreate = Omit<
 export type EspacioPuntoImportanteCreate = Omit<
   EspacioPuntoImportante,
   "created_at" | "updated_at"
+>;
+
+export type WellnessLogCreate = Omit<
+  WellnessLog,
+  "wellness_log_id" | "created_at" | "updated_at"
 >;
