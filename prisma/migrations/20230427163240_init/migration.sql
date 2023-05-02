@@ -9,8 +9,9 @@ CREATE TABLE [dbo].[User] (
     [updated_at] DATETIME2 NOT NULL,
     [email] NVARCHAR(1000) NOT NULL,
     [password] NVARCHAR(1000) NOT NULL,
-    [name] NVARCHAR(1000) NOT NULL,
-    [is_admin] BIT NOT NULL,
+    [first_name] NVARCHAR(1000) NOT NULL,
+    [last_name] NVARCHAR(1000) NOT NULL,
+    [is_admin] VARCHAR(1) NOT NULL,
     CONSTRAINT [User_pkey] PRIMARY KEY CLUSTERED ([id_user]),
     CONSTRAINT [User_email_key] UNIQUE NONCLUSTERED ([email])
 );
@@ -21,6 +22,7 @@ CREATE TABLE [dbo].[Torneo] (
     [created_at] DATETIME2 NOT NULL CONSTRAINT [Torneo_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
     [name] NVARCHAR(1000) NOT NULL,
+    [evento] NVARCHAR(1000) NOT NULL,
     [description] NVARCHAR(1000) NOT NULL,
     [url] NVARCHAR(1000) NOT NULL,
     [date_start] DATE NOT NULL,
@@ -28,6 +30,7 @@ CREATE TABLE [dbo].[Torneo] (
     [location] NVARCHAR(1000) NOT NULL,
     [imagen] NVARCHAR(1000) NOT NULL,
     [is_active] VARCHAR(1) NOT NULL,
+    [deporte_id] INT NOT NULL,
     CONSTRAINT [Torneo_pkey] PRIMARY KEY CLUSTERED ([torneo_id])
 );
 
@@ -136,6 +139,7 @@ CREATE TABLE [dbo].[WellnessGym] (
     [created_at] DATETIME2 NOT NULL CONSTRAINT [WellnessGym_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
     [aforo_actual] INT NOT NULL,
+    [capacidad_max] INT NOT NULL,
     CONSTRAINT [WellnessGym_pkey] PRIMARY KEY CLUSTERED ([wellnsess_gym_id])
 );
 
@@ -160,6 +164,9 @@ CREATE TABLE [dbo].[WellnessLog] (
     [wellness_id] INT NOT NULL,
     CONSTRAINT [WellnessLog_pkey] PRIMARY KEY CLUSTERED ([wellness_log_id])
 );
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Torneo] ADD CONSTRAINT [Torneo_deporte_id_fkey] FOREIGN KEY ([deporte_id]) REFERENCES [dbo].[Deporte]([deporte_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[Espacio] ADD CONSTRAINT [Espacio_espacio_padre_id_fkey] FOREIGN KEY ([espacio_padre_id]) REFERENCES [dbo].[EspacioPadre]([espacio_padre_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
