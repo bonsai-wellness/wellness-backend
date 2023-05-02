@@ -13,6 +13,7 @@ import espacioDeporteRouter from "./routes/espacioDeporte.routes";
 import torneoRouter from "./routes/torneo.routes";
 import puntoImportanteRouter from "./routes/puntoImportante.routes";
 import espacioPuntoImportanteRouter from "./routes/espacioPuntoImportante.routes";
+import wellnessLogRouter from "./routes/wellnessLog.routes";
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/espacio-deporte", espacioDeporteRouter);
 app.use("/api/torneo", torneoRouter);
 app.use("/api/punto-importante", puntoImportanteRouter);
 app.use("/api/espacio-punto-importante", espacioPuntoImportanteRouter);
+app.use("/api/wellness-log", wellnessLogRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

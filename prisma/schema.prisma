@@ -167,7 +167,6 @@ model WellnessLog {
   created_at      DateTime    @default(now())
   updated_at      DateTime    @updatedAt
   type            String      @db.VarChar(1)
-  time            DateTime
   wellness        WellnessGym @relation(fields: [wellness_id], references: [wellnsess_gym_id])
   wellness_id     Int
 }
