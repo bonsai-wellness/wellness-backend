@@ -1,20 +1,39 @@
-import { EspacioPuntoImportante } from "@prisma/client";
-import { db } from "../utils/db.server";
-import { EspacioPuntoImportanteCreate } from "../types";
+import { validationResult } from "express-validator";
+import type { Request, Response } from "express";
+import * as service from "../services/espacioPuntoImportante.service";
 
-export const puntosImportantesByEspacioId = async (
-  id: number
-): Promise<any> => {
-  return db.$queryRaw`
-      SELECT PI.name, EPI.created_at, EPI.updated_at
-      FROM PuntoImportante PI
-      JOIN EspacioPuntoImportante EPI on PI.punto_importante_id = EPI.punto_importante_id
-      WHERE EPI.espacio_id = ${id};
-    `;
+export const apiPuntosImportantesByEspacioId = async (
+  req: Request,
+  res: Response
+) => {
+  // Validation (params)
+  const errors = validationResult(req);
+  if (!errors.isEmpty() && req.file?.path) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const id = parseInt(req.params.id);
+  try {
+    const espacios = await service.puntosImportantesByEspacioId(id);
+    return res.status(200).json(espacios);
+  } catch (err: any) {
+    return res.status(500).json(err.message);
+  }
 };
 
-export const createEspacioPuntoImportante = async (
-  espacioPuntoImportante: EspacioPuntoImportanteCreate
-): Promise<EspacioPuntoImportante> => {
-  return db.espacioPuntoImportante.create({ data: espacioPuntoImportante });
+export const apiCreateEspacioPuntoImportante = async (
+  req: Request,
+  res: Response
+) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const espacioPuntoImportante = req.body;
+    const newEspacioPuntoImportante =
+      await service.createEspacioPuntoImportante(espacioPuntoImportante);
+    return res.status(201).json(newEspacioPuntoImportante);
+  } catch (err: any) {
+    return res.status(500).json(err.message);
+  }
 };

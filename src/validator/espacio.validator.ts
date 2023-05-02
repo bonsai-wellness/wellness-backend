@@ -1,34 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { validationResult, body } from "express-validator";
+import { validationResult, body, param } from "express-validator";
 import fs from "fs";
 import { isValidTime } from "../utils/stringToDate.utils";
 
-export const validatorEspacio = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // Validation (extra fields)
-  const allowedFields = [
-    "name",
-    "code",
-    "capacity",
-    "time_max",
-    "details",
-    "espacio_padre_id",
-    "open_at",
-    "close_at",
-    "is_active",
-  ];
-  const receivedFields = Object.keys(req.body);
-  const extraFields = receivedFields.filter(
-    (field) => !allowedFields.includes(field)
-  );
-  if (extraFields.length > 0) {
-    return res.status(400).json({
-      message: `Extra fields not allowed: ${extraFields.join(", ")}`,
-    });
-  }
+const validatorEspacio = (req: Request, res: Response, next: NextFunction) => {
   // Validation (data types)
   const errors = validationResult(req);
   if (!errors.isEmpty() && req.file?.path) {
@@ -48,14 +23,17 @@ export const validatorEspacio = (
   next();
 };
 
-export const validatorEspacioBody = [
-  body("name").isString(),
-  body("code").isString(),
-  body("capacity").isInt(),
-  body("time_max").isInt(),
-  body("details").isString(),
-  body("espacio_padre_id").isInt(),
-  body("open_at").isString(),
-  body("close_at").isString(),
-  body("is_active").isString(),
+export const validatorPOST = [
+  body("name").isString().notEmpty(),
+  body("code").isString().notEmpty(),
+  body("capacity").isInt().notEmpty(),
+  body("time_max").isInt().notEmpty(),
+  body("details").isString().notEmpty(),
+  body("espacio_padre_id").isInt().notEmpty(),
+  body("open_at").isString().notEmpty(),
+  body("close_at").isString().notEmpty(),
+  body("is_active").isString().notEmpty(),
+  validatorEspacio,
 ];
+
+export const validatorParams = [param("id").isInt({ min: 1 })];

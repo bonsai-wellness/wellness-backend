@@ -1,51 +1,24 @@
 import express from "express";
-import { body, param, validationResult } from "express-validator";
-import type { Request, Response } from "express";
-
-import * as EspacioPuntoImportanteController from "../controller/espacioPuntoImportante.controller";
+import * as ctr from "../controller/espacioPuntoImportante.controller";
+import {
+  validatorCreate,
+  validatorParams,
+} from "../validator/espacioPuntoImportante.validator";
 
 const espacioPuntoImportanteRouter = express.Router();
 
+// GET routes
 espacioPuntoImportanteRouter.get(
   "/:id",
-  param("id").isInt({ min: 1 }),
-  async (req: Request, res: Response) => {
-    // Validation (params)
-    const errors = validationResult(req);
-    if (!errors.isEmpty() && req.file?.path) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    const id = parseInt(req.params.id);
-    try {
-      const espacios =
-        await EspacioPuntoImportanteController.puntosImportantesByEspacioId(id);
-      return res.status(200).json(espacios);
-    } catch (err: any) {
-      return res.status(500).json(err.message);
-    }
-  }
+  validatorParams(),
+  ctr.apiPuntosImportantesByEspacioId
 );
 
+// POST routes
 espacioPuntoImportanteRouter.post(
   "/",
-  body("espacio_id").isInt(),
-  body("punto_importante_id").isInt(),
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    try {
-      const espacioPuntoImportante = req.body;
-      const newEspacioPuntoImportante =
-        await EspacioPuntoImportanteController.createEspacioPuntoImportante(
-          espacioPuntoImportante
-        );
-      return res.status(201).json(newEspacioPuntoImportante);
-    } catch (err: any) {
-      return res.status(500).json(err.message);
-    }
-  }
+  validatorCreate(),
+  ctr.apiCreateEspacioPuntoImportante
 );
 
 export default espacioPuntoImportanteRouter;
