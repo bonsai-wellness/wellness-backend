@@ -9,7 +9,7 @@ import * as ctr from "../controller/deporte.controller";
 const deporteRouter = express.Router();
 
 // GET Routes
-deporteRouter.get("/", ctr.apiGetAllDeportes());
+deporteRouter.get("/", ctr.apiGetAllDeportes);
 
 // POST Routes
 deporteRouter.post(
@@ -17,7 +17,7 @@ deporteRouter.post(
   uploadStrategy,
   validator,
   uploadToBlobStorage,
-  ctr.apiCreateDeporte()
+  ctr.apiCreateDeporte
 );
 
 export default deporteRouter;

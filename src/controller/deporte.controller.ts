@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { createDeporte, getAllDeportes } from "../services/deporte.service";
 import { DeporteCreate } from "../types";
 
-export const apiGetAllDeportes = () => async (_req: Request, res: Response) => {
+export const apiGetAllDeportes = async (_req: Request, res: Response) => {
   try {
     const espacios = await getAllDeportes();
     return res.status(200).json(espacios);
@@ -11,7 +11,7 @@ export const apiGetAllDeportes = () => async (_req: Request, res: Response) => {
   }
 };
 
-export const apiCreateDeporte = () => async (req: Request, res: Response) => {
+export const apiCreateDeporte = async (req: Request, res: Response) => {
   try {
     req.body.imagen = req.body.finalName;
     const deporte: DeporteCreate = {
