@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/app.ts",
     "start": "node build/app.js",
+    "build": "node build/app.js",
     "tsc": "tsc"
   },
   "keywords": [],
