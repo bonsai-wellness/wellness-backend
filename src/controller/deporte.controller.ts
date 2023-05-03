@@ -13,7 +13,7 @@ export const apiGetAllDeportes = () => async (_req: Request, res: Response) => {
 
 export const apiCreateDeporte = () => async (req: Request, res: Response) => {
   try {
-    req.body.imagen = req.file?.path;
+    req.body.imagen = req.body.finalName;
     const deporte: DeporteCreate = {
       name: req.body.name,
       imagen: req.body.imagen,

@@ -26,10 +26,10 @@ const PORT: number = parseInt(process.env.PORT as string, 10);
 
 // Middlewares
 app.use(express.json()); // Middleware to parse req.body to a json format
+app.use(express.urlencoded({ extended: true }));
 
 // Config
 app.use(cors());
-app.use(express.json());
 app.use("/public", express.static("public"));
 moment.tz.setDefault("America/Mexico_City");
 

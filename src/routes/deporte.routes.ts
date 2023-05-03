@@ -1,5 +1,8 @@
 import express from "express";
-import { uploadImage } from "../middleware/upload.middleware";
+import {
+  uploadStrategy,
+  uploadToBlobStorage,
+} from "../middleware/azure.middleware";
 import { validator } from "../validator/deporte.validator";
 import * as ctr from "../controller/deporte.controller";
 
@@ -9,6 +12,12 @@ const deporteRouter = express.Router();
 deporteRouter.get("/", ctr.apiGetAllDeportes());
 
 // POST Routes
-deporteRouter.post("/", uploadImage, validator, ctr.apiCreateDeporte());
+deporteRouter.post(
+  "/",
+  uploadStrategy,
+  validator,
+  uploadToBlobStorage,
+  ctr.apiCreateDeporte()
+);
 
 export default deporteRouter;
