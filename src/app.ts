@@ -17,12 +17,7 @@ import wellnessLogRouter from "./routes/wellnessLog.routes";
 
 const app = express();
 
-if (!process.env.PORT) {
-  console.log("Specify PORT on .env file");
-  process.exit(1);
-}
-
-const PORT: number = parseInt(process.env.PORT as string, 10);
+const PORT: number = parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middlewares
 app.use(express.json()); // Middleware to parse req.body to a json format
