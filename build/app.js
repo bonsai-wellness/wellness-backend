@@ -19,11 +19,7 @@ const puntoImportante_routes_1 = __importDefault(require("./routes/puntoImportan
 const espacioPuntoImportante_routes_1 = __importDefault(require("./routes/espacioPuntoImportante.routes"));
 const wellnessLog_routes_1 = __importDefault(require("./routes/wellnessLog.routes"));
 const app = (0, express_1.default)();
-if (!process.env.PORT) {
-    console.log("Specify PORT on .env file");
-    process.exit(1);
-}
-const PORT = parseInt(process.env.PORT, 10);
+const PORT = parseInt(process.env.PORT, 10) || 3000;
 // Middlewares
 app.use(express_1.default.json()); // Middleware to parse req.body to a json format
 app.use(express_1.default.urlencoded({ extended: true }));
