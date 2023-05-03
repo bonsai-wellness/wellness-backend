@@ -8,7 +8,7 @@ export const uploadStrategy = multer({ storage: inMemoryStorage }).single(
   "imagen"
 );
 
-const connectionString = process.env.AZURE_BLOB_STRING as string;
+const connectionString = process.env.CUSTOMCONNSTR_AZURE_BLOB_STRING as string;
 const blobServiceClient =
   BlobServiceClient.fromConnectionString(connectionString);
 
