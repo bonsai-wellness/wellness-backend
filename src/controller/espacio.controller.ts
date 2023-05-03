@@ -30,7 +30,7 @@ export const apiEspaciosByPadreId = async (req: Request, res: Response) => {
 
 export const apiCreateEspacio = async (req: Request, res: Response) => {
   try {
-    const imagenPath = req.file?.path as string;
+    req.body.imagen = req.body.finalName;
     const espacio: EspacioCreate = {
       name: req.body.name,
       code: req.body.code,
@@ -41,7 +41,7 @@ export const apiCreateEspacio = async (req: Request, res: Response) => {
       open_at: stringToTime(req.body.open_at),
       close_at: stringToTime(req.body.close_at),
       is_active: req.body.is_active,
-      imagen: imagenPath,
+      imagen: req.body.imagen,
     };
     const newEspacio = await service.createEspacio(espacio);
     return res.status(201).json(newEspacio);
