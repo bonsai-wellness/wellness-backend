@@ -1,9 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `time` on the `WellnessLog` table. All the data in the column will be lost.
-
-*/
 BEGIN TRY
 
 BEGIN TRAN;
