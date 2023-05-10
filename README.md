@@ -2,7 +2,7 @@
 ## REST API for live people count and booking system
 ### Testing:
 npm run test
-![TestsVideo](https://github.com/bonsai-wellness/wellness-backend/blob/main/assets/github-images-videos/tests-video.gif)
+https://github.com/bonsai-wellness/wellness-backend/assets/63821607/d8a8de21-99f2-4459-a70c-0c06e3f3beed
 ### Using:
 * Node.js
 * Express.js
