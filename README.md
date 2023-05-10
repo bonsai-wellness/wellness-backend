@@ -1,5 +1,7 @@
 # wellness-backend
 ## REST API for live people count and booking system
+### Testing:
+npm run test
 ### Using:
 * Node.js
 * Express.js
