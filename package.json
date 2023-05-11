@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/app.ts",
     "build": "npx tsc",
-    "start": "node build/app.js",
+    "start": "node build/src/app.js",
     "tsc": "tsc",
     "test": "jest"
   },
