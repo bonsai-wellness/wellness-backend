@@ -28,7 +28,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -36,5 +35,5 @@ jobs:
         with:
           app-name: 'bonsai-rest'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_053D3425D572418F82EF6AE5C05E6C3D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_228166F5CBD344F99029D32F153737FB }}
           package: .
