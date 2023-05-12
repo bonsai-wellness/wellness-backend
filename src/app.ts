@@ -18,7 +18,10 @@ import wellnessGymRouter from "./routes/wellnessGym.routes";
 
 const app = express();
 
-const PORT = process.env.NODE_ENV === 'test' ? process.env.TEST_PORT : parseInt(process.env.PORT as string, 10) || 3000;
+const PORT =
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_PORT
+    : parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middlewares
 app.use(express.json()); // Middleware to parse req.body to a json format
@@ -31,7 +34,7 @@ moment.tz.setDefault("America/Mexico_City");
 
 // Root path for test
 app.get("/", (_req, res) => {
-	res.send(`Listening on port ${PORT}`);
+  res.send(`Listening on port ${PORT}`);
 });
 
 // Routes
@@ -47,11 +50,11 @@ app.use("/api/wellness-log", wellnessLogRouter);
 app.use("/api/wellness-gym", wellnessGymRouter);
 
 app.listen(PORT, () => {
-	// console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });
 
 function signalHandler() {
-	process.exit();
+  process.exit();
 }
 
 process.on("SIGINT", signalHandler);
