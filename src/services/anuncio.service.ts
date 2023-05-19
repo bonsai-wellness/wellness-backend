@@ -9,3 +9,11 @@ export const getAllAnuncios = async (): Promise<Aviso[]> => {
 export const createAnuncio = async (anuncio: AnuncioCreate): Promise<Aviso> => {
 	return db.aviso.create({ data: anuncio });
 };
+
+export const deleteAnuncio = async (id: number): Promise<Aviso> => {
+	return db.aviso.delete({
+		where: {
+			aviso_id: id,
+		},
+	});
+};

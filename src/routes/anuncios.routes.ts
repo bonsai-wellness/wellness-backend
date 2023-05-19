@@ -20,4 +20,7 @@ anunciosRouter.post(
 	ctr.apiCreateAnuncio
 );
 
+// DELETE routes
+anunciosRouter.delete("/:id", ctr.apiDeleteAnuncio);
+
 export default anunciosRouter;

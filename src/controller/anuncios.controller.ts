@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createAnuncio, getAllAnuncios } from "../services/anuncio.service";
+import { createAnuncio, getAllAnuncios, deleteAnuncio } from "../services/anuncio.service";
 import { AnuncioCreate } from "../types";
 
 export const apiGetAllAnuncios = async (_req: Request, res: Response) => {
@@ -17,6 +17,7 @@ export const apiCreateAnuncio = async (req: Request, res: Response) => {
 		const anuncio: AnuncioCreate = {
 			name: req.body.name,
 			description: req.body.description,
+			url: req.body.url,
 			imagen: req.body.imagen,
 			is_active: "T",
 		};
@@ -26,3 +27,13 @@ export const apiCreateAnuncio = async (req: Request, res: Response) => {
 		return res.status(500).json(err.message);
 	}
 };
+
+export const apiDeleteAnuncio = async (req: Request, res: Response) => {
+	const id = parseInt(req.params.id);
+	try {
+	  const deletedAnuncio = await deleteAnuncio(id);
+	  return res.status(200).json(deletedAnuncio);
+	} catch (err: any) {
+	  return res.status(500).json(err.message);
+	}
+  };
