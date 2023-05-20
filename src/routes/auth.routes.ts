@@ -1,17 +1,29 @@
-// Librerias
 import express from "express";
+import passport from "passport";
+import * as ctr from "../controller/auth.controller";
+import { isLoggedIn } from "../middleware/auth.middleware";
 
-// Router
 const router = express.Router();
 
-// Rutas
-router.get("/", (_req, res) => {
-	res.send("Hello World!");
-});
+router.get("/", ctr.googleLanding);
 
-router.get("/signup", (_req, res) => {
-    res.send("Signup");
-});
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
 
-// Exportamos modulo
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/api/auth/protected",
+    failureRedirect: "/api/auth/google/failure",
+  })
+);
+
+router.get("/protected", isLoggedIn, ctr.protectedRoute);
+
+router.get("/logout", ctr.googleLogout);
+
+router.get("/auth/google/failure", ctr.googleAuthFail);
+
 export default router;
