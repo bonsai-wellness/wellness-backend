@@ -22,6 +22,8 @@ router.get(
 
 router.get("/protected", isLoggedIn, ctr.protectedRoute);
 
+router.get("/user", isLoggedIn, ctr.getUser);
+
 router.get("/logout", ctr.googleLogout);
 
 router.get("/auth/google/failure", ctr.googleAuthFail);

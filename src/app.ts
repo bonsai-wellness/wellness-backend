@@ -27,6 +27,8 @@ const PORT =
     : parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middlewares
+// Enable CORS with specific allowed origins
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 app.use(express.json()); // Middleware to parse req.body to a json format
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,7 +38,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Config
-app.use(cors());
 app.use("/public", express.static("public"));
 moment.tz.setDefault("America/Mexico_City");
 
