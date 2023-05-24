@@ -1,7 +1,9 @@
 // Libraries
 import express from "express";
 import cors from "cors";
+import passport from "passport";
 require("dotenv").config();
+require("./utils/passport.utils");
 
 // Route imports
 import authRouter from "./routes/auth.routes";
@@ -15,6 +17,7 @@ import puntoImportanteRouter from "./routes/puntoImportante.routes";
 import espacioPuntoImportanteRouter from "./routes/espacioPuntoImportante.routes";
 import wellnessLogRouter from "./routes/wellnessLog.routes";
 import wellnessGymRouter from "./routes/wellnessGym.routes";
+import sessionPrisma from "./utils/session.utils";
 import anunciosRouter from "./routes/anuncios.routes";
 
 const app = express();
@@ -25,11 +28,17 @@ const PORT =
     : parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middlewares
+// Enable CORS with specific allowed origins
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 app.use(express.json()); // Middleware to parse req.body to a json format
 app.use(express.urlencoded({ extended: true }));
 
+// Auth
+app.use(sessionPrisma);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Config
-app.use(cors());
 app.use("/public", express.static("public"));
 moment.tz.setDefault("America/Mexico_City");
 

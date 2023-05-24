@@ -5,14 +5,17 @@ BEGIN TRAN;
 -- CreateTable
 CREATE TABLE [dbo].[User] (
     [id_user] INT NOT NULL IDENTITY(1,1),
+    [google_id] INT NOT NULL,
     [created_at] DATETIME2 NOT NULL CONSTRAINT [User_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
     [email] NVARCHAR(1000) NOT NULL,
-    [password] NVARCHAR(1000) NOT NULL,
     [first_name] NVARCHAR(1000) NOT NULL,
     [last_name] NVARCHAR(1000) NOT NULL,
+    [name] NVARCHAR(1000) NOT NULL,
+    [profile_picture] NVARCHAR(1000) NOT NULL,
     [is_admin] VARCHAR(1) NOT NULL,
     CONSTRAINT [User_pkey] PRIMARY KEY CLUSTERED ([id_user]),
+    CONSTRAINT [User_google_id_key] UNIQUE NONCLUSTERED ([google_id]),
     CONSTRAINT [User_email_key] UNIQUE NONCLUSTERED ([email])
 );
 
@@ -43,6 +46,7 @@ CREATE TABLE [dbo].[Aviso] (
     [description] NVARCHAR(1000) NOT NULL,
     [imagen] NVARCHAR(1000) NOT NULL,
     [is_active] VARCHAR(1) NOT NULL,
+    [url] NVARCHAR(1000) NOT NULL,
     CONSTRAINT [Aviso_pkey] PRIMARY KEY CLUSTERED ([aviso_id])
 );
 
@@ -100,7 +104,7 @@ CREATE TABLE [dbo].[PuntoImportante] (
     [punto_importante_id] INT NOT NULL IDENTITY(1,1),
     [created_at] DATETIME2 NOT NULL CONSTRAINT [PuntoImportante_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
-    [name] INT NOT NULL,
+    [name] NVARCHAR(1000) NOT NULL,
     CONSTRAINT [PuntoImportante_pkey] PRIMARY KEY CLUSTERED ([punto_importante_id])
 );
 
@@ -160,9 +164,18 @@ CREATE TABLE [dbo].[WellnessLog] (
     [created_at] DATETIME2 NOT NULL CONSTRAINT [WellnessLog_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
     [type] VARCHAR(1) NOT NULL,
-    [time] DATETIME2 NOT NULL,
     [wellness_id] INT NOT NULL,
     CONSTRAINT [WellnessLog_pkey] PRIMARY KEY CLUSTERED ([wellness_log_id])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[Session] (
+    [id] NVARCHAR(1000) NOT NULL,
+    [sid] NVARCHAR(1000) NOT NULL,
+    [data] NVARCHAR(1000) NOT NULL,
+    [expiresAt] DATETIME2 NOT NULL,
+    CONSTRAINT [Session_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [Session_sid_key] UNIQUE NONCLUSTERED ([sid])
 );
 
 -- AddForeignKey
