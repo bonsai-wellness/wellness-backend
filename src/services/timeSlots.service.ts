@@ -6,13 +6,35 @@ interface TimeSlot {
   end_time: string;
 }
 
-const generateTimeSlots = async (espacio: Espacio, date: Date): Promise<TimeSlot[]> => {
+// Functions for getting available time slots
+// for each Espacio
+
+export const generateTimeSlotsByEspacios = async (
+  espacios: Espacio[],
+  date: Date
+) => {
+  const espaciosTimeSlots = [];
+  for (const espacio of espacios) {
+    const timeSlots = await generateTimeSlots(espacio, date);
+    const newEspacioTimeSlots = {
+      id: espacio.espacio_id,
+      timeSlots: timeSlots,
+    };
+    espaciosTimeSlots.push(newEspacioTimeSlots);
+  }
+  return espaciosTimeSlots;
+};
+
+const generateTimeSlots = async (
+  espacio: Espacio,
+  date: Date
+): Promise<TimeSlot[]> => {
   const timeSlots: TimeSlot[] = [];
   const startTime = espacio.open_at;
   const endTime = espacio.close_at;
   const reservationDuration = espacio.reservation_time * 60 * 1000; // Convert minutes to milliseconds
 
-  const usedSlots = await getEspacioReservations(espacio.espacio_id, date);
+  const usedSlots = await getReservationsByEspacio(espacio.espacio_id, date);
 
   // Handle scenarios where the end time is earlier than the start time
   if (endTime.getTime() < startTime.getTime()) {
@@ -35,20 +57,7 @@ const generateTimeSlots = async (espacio: Espacio, date: Date): Promise<TimeSlot
   return timeSlots;
 };
 
-export const generateTimeSlotsByEspacios = async (espacios: Espacio[], date: Date) => {
-  const espaciosTimeSlots = [];
-  for (const espacio of espacios) {
-    const timeSlots = await generateTimeSlots(espacio, date);
-    const newEspacioTimeSlots = {
-      id: espacio.espacio_id,
-      timeSlots: timeSlots,
-    };
-    espaciosTimeSlots.push(newEspacioTimeSlots);
-  }
-  return espaciosTimeSlots;
-};
-
-export const getEspacioReservations = async (
+const getReservationsByEspacio = async (
   id: number,
   date: Date
 ): Promise<Reservation[]> => {

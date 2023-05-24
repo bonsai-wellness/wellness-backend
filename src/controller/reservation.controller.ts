@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as service from "../services/reservation.service";
+import * as service from "../services/timeSlots.service";
 import { espaciosById } from "../services/espacio.service";
 
 export const apiListAvailableSlots = async (req: Request, res: Response) => {
