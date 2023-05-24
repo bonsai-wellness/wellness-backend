@@ -42,6 +42,7 @@ export const apiCreateEspacio = async (req: Request, res: Response) => {
       close_at: stringToTime(req.body.close_at),
       is_active: req.body.is_active,
       imagen: req.body.imagen,
+      reservation_time: 90 // MARK: Fix to handle this
     };
     const newEspacio = await service.createEspacio(espacio);
     return res.status(201).json(newEspacio);
