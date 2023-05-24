@@ -2,17 +2,19 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { db } from "./db.server";
 import { UserCreate } from "../types";
+require("dotenv").config();
 
-const GOOGLE_CLIENT_ID =
-  "742749423150-tsbpr7gvrqvktg060ls2o2ge3jsqs1pl.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "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";
+const GOOGLE_CLIENT_ID = process.env.CUSTOMCONNSTR_GOOGLE_CLIENT_KEY!;
+const GOOGLE_CLIENT_SECRET = process.env.CUSTOMCONNSTR_GOOGLE_CLIENT_SECRET!;
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/api/auth/google/callback",
+      callbackURL:
+        "http://localhost:5000/api/auth/google/callback" ||
+        process.env.CUSTOMCONNSTR_GOOGLE_CALLBACK_URL,
       passReqToCallback: true,
     },
     async function (_req, _accessToken, _refreshToken, profile, done) {
