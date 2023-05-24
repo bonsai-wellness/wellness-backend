@@ -5,7 +5,7 @@ BEGIN TRAN;
 -- CreateTable
 CREATE TABLE [dbo].[User] (
     [id_user] INT NOT NULL IDENTITY(1,1),
-    [google_id] INT NOT NULL,
+    [google_id] NVARCHAR(1000) NOT NULL,
     [created_at] DATETIME2 NOT NULL CONSTRAINT [User_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
     [email] NVARCHAR(1000) NOT NULL,
@@ -77,6 +77,7 @@ CREATE TABLE [dbo].[Espacio] (
     [imagen] NVARCHAR(1000) NOT NULL,
     [is_active] VARCHAR(1) NOT NULL,
     [espacio_padre_id] INT NOT NULL,
+    [reservation_time] INT NOT NULL,
     CONSTRAINT [Espacio_pkey] PRIMARY KEY CLUSTERED ([espacio_id])
 );
 
@@ -122,9 +123,10 @@ CREATE TABLE [dbo].[Reservation] (
     [reservation_id] INT NOT NULL IDENTITY(1,1),
     [created_at] DATETIME2 NOT NULL CONSTRAINT [Reservation_created_at_df] DEFAULT CURRENT_TIMESTAMP,
     [updated_at] DATETIME2 NOT NULL,
-    [entry_time] TIME NOT NULL,
-    [exit_time] TIME NOT NULL,
+    [start_time] TIME NOT NULL,
+    [end_time] TIME NOT NULL,
     [espacio_id] INT NOT NULL,
+    [booked_time] INT NOT NULL,
     CONSTRAINT [Reservation_pkey] PRIMARY KEY CLUSTERED ([reservation_id])
 );
 

@@ -45,7 +45,6 @@ model Aviso {
   updated_at  DateTime @updatedAt
   name        String
   description String
-  url         String
   imagen      String
   is_active   String   @db.VarChar(1)
   url         String
@@ -76,6 +75,7 @@ model Espacio {
   imagen                 String
   is_active              String                   @db.VarChar(1)
   espacio_padre_id       Int
+  reservation_time       Int
   espacioPadre           EspacioPadre             @relation(fields: [espacio_padre_id], references: [espacio_padre_id])
   EspacioDeporte         EspacioDeporte[]
   EspacioPuntoImportante EspacioPuntoImportante[]
@@ -126,9 +126,10 @@ model Reservation {
   reservation_id  Int               @id @default(autoincrement())
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
-  entry_time      DateTime          @db.Time
-  exit_time       DateTime          @db.Time
+  start_time      DateTime          @db.Time
+  end_time        DateTime          @db.Time
   espacio_id      Int
+  booked_time     Int
   espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])
   ReservationUser ReservationUser[]
 }
