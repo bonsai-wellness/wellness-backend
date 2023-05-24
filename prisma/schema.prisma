@@ -45,6 +45,7 @@ model Aviso {
   updated_at  DateTime @updatedAt
   name        String
   description String
+  url         String
   imagen      String
   is_active   String   @db.VarChar(1)
   url         String
