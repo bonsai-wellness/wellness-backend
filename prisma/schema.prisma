@@ -126,8 +126,9 @@ model Reservation {
   reservation_id  Int               @id @default(autoincrement())
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
-  start_time      DateTime
-  end_time        DateTime
+  date            DateTime          @db.Date
+  start_time      DateTime          @db.Time
+  end_time        DateTime          @db.Time
   espacio_id      Int
   booked_time     Int
   espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])

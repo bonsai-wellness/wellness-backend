@@ -25,6 +25,7 @@ export const generateTimeSlotsByEspacios = async (
   return espaciosTimeSlots;
 };
 
+// Generates time slots validating existing ones
 const generateTimeSlots = async (
   espacio: Espacio,
   date: Date
@@ -57,7 +58,7 @@ const generateTimeSlots = async (
   return timeSlots;
 };
 
-const getReservationsByEspacio = async (
+export const getReservationsByEspacio = async (
   id: number,
   date: Date
 ): Promise<Reservation[]> => {
@@ -67,9 +68,37 @@ const getReservationsByEspacio = async (
   return db.reservation.findMany({
     where: {
       espacio_id: id,
-      start_time: { gte: date, lt: limitDate },
+      date: { gte: date, lt: limitDate },
     },
   });
+};
+
+// Generates time slot without validating existing ones
+export const generateAllTimeSlots = async (
+  espacio: Espacio,
+): Promise<TimeSlot[]> => {
+  const timeSlots: TimeSlot[] = [];
+  const startTime = espacio.open_at;
+  const endTime = espacio.close_at;
+  const reservationDuration = espacio.reservation_time * 60 * 1000; // Convert minutes to milliseconds
+
+  // Handle scenarios where the end time is earlier than the start time
+  if (endTime.getTime() < startTime.getTime()) {
+    endTime.setDate(endTime.getDate() + 1); // Increment the end time to the next day
+  }
+
+  while (startTime.getTime() + reservationDuration <= endTime.getTime()) {
+    const slot: TimeSlot = {
+      start_time: formatTime(startTime),
+      end_time: formatTime(new Date(startTime.getTime() + reservationDuration)),
+    };
+
+    timeSlots.push(slot);
+
+    startTime.setTime(startTime.getTime() + reservationDuration);
+  }
+
+  return timeSlots;
 };
 
 // Helper functions
