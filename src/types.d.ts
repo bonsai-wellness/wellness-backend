@@ -60,10 +60,3 @@ export type WellnessLogCreate = Omit<
 export type UserCreate = Omit<User, "id_user" | "created_at" | "updated_at">;
 
 export type ReservationCreate = Omit<Reservation, "reservation_id" | "created_at" | "updated_at">;
-
-export interface IReservationRequest {
-	espacioId: number;
-	date: Date;
-	startTime: Date;
-	endTime: Date;
-}

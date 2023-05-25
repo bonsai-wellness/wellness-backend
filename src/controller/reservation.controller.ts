@@ -4,6 +4,7 @@ import { ReservationCreate } from "../types";
 import { createReservation, listAllReservaciones } from "../services/reservation.service";
 import { getReservationsByEspacio, generateTimeSlotsByEspacios } from "../services/timeSlots.service";
 import { stringToTime } from "../utils/stringToDate.utils";
+import { creaeteReservationUser } from "../services/reservationUser.service";
 
 export const apiListAvailableSlots = async (req: Request, res: Response) => {
   const ids: [number] = req.body.espacio_ids;
@@ -35,6 +36,8 @@ export const apiCreateReservation = async (req: Request, res: Response) => {
       existingReservations,
       reservation
     );
+    const user: any = req.user!
+    creaeteReservationUser(user.id_user, newReservation.reservation_id);
     return res.status(201).json(newReservation);
   } catch (err: any) {
     return res.status(500).json(err.message);
