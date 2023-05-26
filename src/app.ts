@@ -17,8 +17,9 @@ import puntoImportanteRouter from "./routes/puntoImportante.routes";
 import espacioPuntoImportanteRouter from "./routes/espacioPuntoImportante.routes";
 import wellnessLogRouter from "./routes/wellnessLog.routes";
 import wellnessGymRouter from "./routes/wellnessGym.routes";
-import sessionPrisma from "./utils/session.utils";
 import anunciosRouter from "./routes/anuncios.routes";
+import reservationRouter from "./routes/reservation.routes";
+import sessionPrisma from "./utils/session.utils";
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use("/api/espacio-punto-importante", espacioPuntoImportanteRouter);
 app.use("/api/wellness-log", wellnessLogRouter);
 app.use("/api/wellness-gym", wellnessGymRouter);
 app.use("/api/anuncio", anunciosRouter);
+app.use("/api/reservation", reservationRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
