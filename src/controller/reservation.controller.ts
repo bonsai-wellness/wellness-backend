@@ -13,7 +13,6 @@ export const apiListAvailableSlots = async (req: Request, res: Response) => {
       const paramDate = req.query.date ? String(req.query.date) : '';
       const ids = paramIds!.split(',').map(Number);
       const date = new Date(paramDate);
-      console.log(ids);
       const espacios = await espaciosById(ids);
       const timeSlots = await generateTimeSlotsByEspacios(espacios, date);
       return res.status(200).json(timeSlots);

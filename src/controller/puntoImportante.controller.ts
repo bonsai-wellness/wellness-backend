@@ -23,7 +23,6 @@ export const apiCreatePuntoImportante = async (req: Request, res: Response) => {
     );
     return res.status(201).json(newPuntoImportante);
   } catch (err: any) {
-    console.log(err);
     return res.status(500).json(err.message);
   }
 };

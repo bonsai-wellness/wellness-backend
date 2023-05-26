@@ -21,7 +21,6 @@ export const apiCreateEspacioPadre = async (req: Request, res: Response) => {
     const newEspacioPadre = await service.createEspacioPadre(espacioPadre);
     return res.status(201).json(newEspacioPadre);
   } catch (err: any) {
-    console.log(err);
     return res.status(500).json(err.message);
   }
 };
