@@ -7,14 +7,21 @@ import { stringToTime } from "../utils/stringToDate.utils";
 import { creaeteReservationUser } from "../services/reservationUser.service";
 
 export const apiListAvailableSlots = async (req: Request, res: Response) => {
-  const ids: [number] = req.body.espacio_ids;
-  const date: Date = new Date(req.body.date);
-  try {
-    const espacios = await espaciosById(ids);
-    const timeSlots = await generateTimeSlotsByEspacios(espacios, date);
-    return res.status(200).json(timeSlots);
-  } catch (err: any) {
-    return res.status(500).json(err.message);
+  if (req.query.ids && req.query.date) {
+    try {
+      const paramIds = req.query.ids ? String(req.query.ids) : '';
+      const paramDate = req.query.date ? String(req.query.date) : '';
+      const ids = paramIds!.split(',').map(Number);
+      const date = new Date(paramDate);
+      console.log(ids);
+      const espacios = await espaciosById(ids);
+      const timeSlots = await generateTimeSlotsByEspacios(espacios, date);
+      return res.status(200).json(timeSlots);
+    } catch (err: any) {
+      return res.status(500).json(err.message);
+    }
+  } else {
+    return res.status(401).json("No params")
   }
 };
 

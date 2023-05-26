@@ -14,7 +14,7 @@ export const espaciosByPadreId = async (id: number): Promise<Espacio[]> => {
   });
 };
 
-export const espaciosById = async (ids: [number]): Promise<Espacio[]> => {
+export const espaciosById = async (ids: number[]): Promise<Espacio[]> => {
   return db.espacio.findMany({
     where: {
       espacio_id: {in: ids},
