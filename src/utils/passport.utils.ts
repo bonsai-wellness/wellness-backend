@@ -13,8 +13,8 @@ passport.use(
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL:
-        "http://localhost:8000/api/auth/google/callback" ||
-        process.env.CUSTOMCONNSTR_GOOGLE_CALLBACK_URL,
+        process.env.CUSTOMCONNSTR_GOOGLE_CALLBACK_URL ||
+        "http://localhost:8000/api/auth/google/callback",
       passReqToCallback: true,
     },
     async function (_req, _accessToken, _refreshToken, profile, done) {
