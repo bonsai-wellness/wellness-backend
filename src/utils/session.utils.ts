@@ -13,6 +13,7 @@ const sessionPrisma = expressSession({
   cookie: {
     path: "/",
     domain: process.env.CUSTOMCONNSTR_COOKIE_DOMAIN || "localhost",
+    sameSite: "none"
   }
 });
 
