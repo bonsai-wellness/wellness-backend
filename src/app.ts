@@ -26,11 +26,17 @@ const app = express();
 const PORT =
   process.env.NODE_ENV === "test"
     ? process.env.TEST_PORT
-    : parseInt(process.env.PORT as string, 10) || 3000;
+    : parseInt(process.env.PORT as string, 10) || 8080;
 
 // Middlewares
 // Enable CORS with specific allowed origins
-app.use(cors({ origin: "http://localhost:4200", credentials: true }));
+app.use(
+  cors({
+    origin:
+      "http://localhost:4200" || process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL,
+    credentials: true,
+  })
+);
 app.use(express.json()); // Middleware to parse req.body to a json format
 app.use(express.urlencoded({ extended: true }));
 
