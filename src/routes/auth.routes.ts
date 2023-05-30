@@ -21,6 +21,6 @@ router.get(
   ctr.googleAuthSuccess
 );
 
-router.get("/user", ctr.getUser);
+router.get("/user", passport.authenticate('jwt', { session: false }), ctr.getUser);
 
 export default router;

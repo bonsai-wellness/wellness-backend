@@ -4,6 +4,7 @@ import cors from "cors";
 import passport from "passport";
 require("dotenv").config();
 require("./utils/passport.utils");
+require("./utils/passportJWT.utils");
 
 // Route imports
 import authRouter from "./routes/auth.routes";
