@@ -19,7 +19,6 @@ import wellnessLogRouter from "./routes/wellnessLog.routes";
 import wellnessGymRouter from "./routes/wellnessGym.routes";
 import anunciosRouter from "./routes/anuncios.routes";
 import reservationRouter from "./routes/reservation.routes";
-import sessionPrisma from "./utils/session.utils";
 
 const app = express();
 
@@ -29,21 +28,12 @@ const PORT =
     : parseInt(process.env.PORT as string, 10) || 8080;
 
 // Middlewares
-// Enable CORS with specific allowed origins
-app.use(
-  cors({
-    origin:
-    process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200",
-    credentials: true,
-  })
-);
-app.use(express.json()); // Middleware to parse req.body to a json format
+app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Auth
-app.use(sessionPrisma);
 app.use(passport.initialize());
-app.use(passport.session());
 
 // Config
 app.use("/public", express.static("public"));
