@@ -10,6 +10,10 @@ const sessionPrisma = expressSession({
     dbRecordIdIsSessionId: true,
     dbRecordIdFunction: undefined,
   }),
+  cookie: {
+    path: "/",
+    domain: process.env.CUSTOMCONNSTR_COOKIE_DOMAIN || "localhost",
+  }
 });
 
 export default sessionPrisma;
