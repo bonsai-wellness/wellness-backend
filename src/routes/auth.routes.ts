@@ -17,15 +17,13 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     successRedirect:
-      "/api/auth/google/success" ||
-      process.env.CUSTOMCONNSTR_GOOGLE_SUCCESS_REDIRECT,
+      "/api/auth/google/success",
     failureRedirect:
-      "/api/auth/google/failure" ||
-      process.env.CUSTOMCONNSTR_GOOGLE_FAILURE_REDIRECT,
+      "/api/auth/google/failure"
   })
 );
 
-router.get("/google/success", isLoggedIn, ctr.closePopUp);
+router.get("/google/success", ctr.closePopUp);
 
 router.get("/user", isLoggedIn, ctr.getUser);
 
