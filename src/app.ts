@@ -33,7 +33,7 @@ const PORT =
 app.use(
   cors({
     origin:
-      "http://localhost:4200" || process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL,
+    process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200",
     credentials: true,
   })
 );
