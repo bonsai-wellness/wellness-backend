@@ -10,12 +10,14 @@ datasource db {
 
 model User {
   id_user         Int               @id @default(autoincrement())
+  google_id       String            @unique
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
   email           String            @unique
-  password        String
   first_name      String
   last_name       String
+  name            String
+  profile_picture String
   is_admin        String            @db.VarChar(1)
   ReservationUser ReservationUser[]
 }
@@ -33,8 +35,8 @@ model Torneo {
   location    String
   imagen      String
   is_active   String   @db.VarChar(1)
-  deporte     Deporte  @relation(fields: [deporte_id], references: [deporte_id])
   deporte_id  Int
+  deporte     Deporte  @relation(fields: [deporte_id], references: [deporte_id])
 }
 
 model Aviso {
@@ -43,9 +45,9 @@ model Aviso {
   updated_at  DateTime @updatedAt
   name        String
   description String
-  url         String
   imagen      String
   is_active   String   @db.VarChar(1)
+  url         String
 }
 
 model EspacioPadre {
@@ -72,11 +74,12 @@ model Espacio {
   close_at               DateTime                 @db.Time
   imagen                 String
   is_active              String                   @db.VarChar(1)
-  espacioPadre           EspacioPadre             @relation(fields: [espacio_padre_id], references: [espacio_padre_id])
   espacio_padre_id       Int
-  Reservation            Reservation[]
+  reservation_time       Int
+  espacioPadre           EspacioPadre             @relation(fields: [espacio_padre_id], references: [espacio_padre_id])
   EspacioDeporte         EspacioDeporte[]
   EspacioPuntoImportante EspacioPuntoImportante[]
+  Reservation            Reservation[]
 }
 
 model Deporte {
@@ -85,17 +88,17 @@ model Deporte {
   updated_at     DateTime         @updatedAt
   name           String
   imagen         String
-  Torneo         Torneo[]
   EspacioDeporte EspacioDeporte[]
+  Torneo         Torneo[]
 }
 
 model EspacioDeporte {
-  deporte    Deporte  @relation(fields: [deporte_id], references: [deporte_id])
-  espacio    Espacio  @relation(fields: [espacio_id], references: [espacio_id])
   deporte_id Int
   espacio_id Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  deporte    Deporte  @relation(fields: [deporte_id], references: [deporte_id])
+  espacio    Espacio  @relation(fields: [espacio_id], references: [espacio_id])
 
   @@id([deporte_id, espacio_id])
 }
@@ -109,12 +112,12 @@ model PuntoImportante {
 }
 
 model EspacioPuntoImportante {
-  espacio             Espacio         @relation(fields: [espacio_id], references: [espacio_id])
-  puntoImportante     PuntoImportante @relation(fields: [punto_importante_id], references: [punto_importante_id])
   espacio_id          Int
   punto_importante_id Int
   created_at          DateTime        @default(now())
   updated_at          DateTime        @updatedAt
+  espacio             Espacio         @relation(fields: [espacio_id], references: [espacio_id])
+  puntoImportante     PuntoImportante @relation(fields: [punto_importante_id], references: [punto_importante_id])
 
   @@id([espacio_id, punto_importante_id])
 }
@@ -123,20 +126,22 @@ model Reservation {
   reservation_id  Int               @id @default(autoincrement())
   created_at      DateTime          @default(now())
   updated_at      DateTime          @updatedAt
-  entry_time      DateTime          @db.Time
-  exit_time       DateTime          @db.Time
-  espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])
+  date            DateTime          @db.Date
+  start_time      DateTime          @db.Time
+  end_time        DateTime          @db.Time
   espacio_id      Int
+  booked_time     Int
+  espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])
   ReservationUser ReservationUser[]
 }
 
 model ReservationUser {
-  reservation    Reservation @relation(fields: [reservation_id], references: [reservation_id])
   reservation_id Int
-  user           User        @relation(fields: [user_id], references: [id_user])
   user_id        Int
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
+  reservation    Reservation @relation(fields: [reservation_id], references: [reservation_id])
+  user           User        @relation(fields: [user_id], references: [id_user])
 
   @@id([reservation_id, user_id])
 }
@@ -153,12 +158,12 @@ model WellnessGym {
 
 model WellnessSchedule {
   day_of_week_id  String
-  wellnessGym     WellnessGym @relation(fields: [wellness_gym_id], references: [wellnsess_gym_id])
   wellness_gym_id Int
   created_at      DateTime    @default(now())
   updated_at      DateTime    @updatedAt
   open_time       DateTime    @db.Time
   close_time      DateTime    @db.Time
+  wellnessGym     WellnessGym @relation(fields: [wellness_gym_id], references: [wellnsess_gym_id])
 
   @@id([day_of_week_id, wellness_gym_id])
 }
@@ -168,6 +173,13 @@ model WellnessLog {
   created_at      DateTime    @default(now())
   updated_at      DateTime    @updatedAt
   type            String      @db.VarChar(1)
-  wellness        WellnessGym @relation(fields: [wellness_id], references: [wellnsess_gym_id])
   wellness_id     Int
+  wellness        WellnessGym @relation(fields: [wellness_id], references: [wellnsess_gym_id])
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }

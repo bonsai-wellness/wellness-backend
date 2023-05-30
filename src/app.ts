@@ -1,7 +1,9 @@
 // Libraries
 import express from "express";
 import cors from "cors";
+import passport from "passport";
 require("dotenv").config();
+require("./utils/passport.utils");
 
 // Route imports
 import authRouter from "./routes/auth.routes";
@@ -16,6 +18,8 @@ import espacioPuntoImportanteRouter from "./routes/espacioPuntoImportante.routes
 import wellnessLogRouter from "./routes/wellnessLog.routes";
 import wellnessGymRouter from "./routes/wellnessGym.routes";
 import anunciosRouter from "./routes/anuncios.routes";
+import reservationRouter from "./routes/reservation.routes";
+import sessionPrisma from "./utils/session.utils";
 
 const app = express();
 
@@ -25,11 +29,17 @@ const PORT =
     : parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middlewares
+// Enable CORS with specific allowed origins
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 app.use(express.json()); // Middleware to parse req.body to a json format
 app.use(express.urlencoded({ extended: true }));
 
+// Auth
+app.use(sessionPrisma);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Config
-app.use(cors());
 app.use("/public", express.static("public"));
 moment.tz.setDefault("America/Mexico_City");
 
@@ -50,6 +60,7 @@ app.use("/api/espacio-punto-importante", espacioPuntoImportanteRouter);
 app.use("/api/wellness-log", wellnessLogRouter);
 app.use("/api/wellness-gym", wellnessGymRouter);
 app.use("/api/anuncio", anunciosRouter);
+app.use("/api/reservation", reservationRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
