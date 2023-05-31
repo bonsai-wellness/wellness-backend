@@ -11,6 +11,16 @@ export const apiListEspaciosPadre = async (_req: Request, res: Response) => {
   }
 };
 
+export const apiListEspaciosPadreByDeporte = async (req: Request, res: Response) => {
+  try {
+    const id: number = Number(req.params.id);
+    const espaciosPadre = await service.listEspaciosPadreByDeporte(id);
+    return res.status(200).json(espaciosPadre);
+  } catch (err: any) {
+    return res.status(500).json(err.message);
+  }
+};
+
 export const apiCreateEspacioPadre = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

@@ -6,6 +6,7 @@ const espacioPadreRouter = express.Router();
 
 // GET routes
 espacioPadreRouter.get("/", ctr.apiListEspaciosPadre);
+espacioPadreRouter.get("/deporte/:id", ctr.apiListEspaciosPadreByDeporte);
 
 // POST routes
 espacioPadreRouter.post("/", validator(), ctr.apiCreateEspacioPadre);
