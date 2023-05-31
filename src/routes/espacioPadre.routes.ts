@@ -6,7 +6,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 const espacioPadreRouter = express.Router();
 
 // GET routes
+
 espacioPadreRouter.get("/", jwtAuth(), ctr.apiListEspaciosPadre);
+
+espacioPadreRouter.get("/deporte/:id", jwtAuth(), ctr.apiListEspaciosPadreByDeporte);
 
 // POST routes
 espacioPadreRouter.post("/", jwtAuth(), validator(), ctr.apiCreateEspacioPadre);
