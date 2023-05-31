@@ -4,13 +4,14 @@ import {
   validatorCreate,
   validatorParams,
 } from "../validator/espacioDeporte.validator";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioDeporteRouter = express.Router();
 
 // GET routes
-espacioDeporteRouter.get("/:id", validatorParams(), ctr.apiEspaciosByDeporteId);
+espacioDeporteRouter.get("/:id", jwtAuth(), validatorParams(), ctr.apiEspaciosByDeporteId);
 
 // POST routes
-espacioDeporteRouter.post("/", validatorCreate(), ctr.apiCreateEspacioDeporte);
+espacioDeporteRouter.post("/", jwtAuth(), validatorCreate(), ctr.apiCreateEspacioDeporte);
 
 export default espacioDeporteRouter;

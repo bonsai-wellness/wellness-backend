@@ -5,15 +5,17 @@ import {
 } from "../middleware/azure.middleware";
 import * as ctr from "../controller/torneo.controller";
 import { validatorCreate } from "../validator/torneo.validator";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const torneoRouter = express.Router();
 
 // GET routes
-torneoRouter.get("/", ctr.apiListTorneos);
+torneoRouter.get("/", jwtAuth(), ctr.apiListTorneos);
 
 // POST routes
 torneoRouter.post(
   "/",
+  jwtAuth(),
   uploadStrategy,
   validatorCreate,
   uploadToBlobStorage,
@@ -21,6 +23,6 @@ torneoRouter.post(
 );
 
 // DELETE routes
-torneoRouter.delete("/:id", ctr.apiDeleteTorneo);
+torneoRouter.delete("/:id", jwtAuth(), ctr.apiDeleteTorneo);
 
 export default torneoRouter;

@@ -9,6 +9,6 @@ const espacioPadreRouter = express.Router();
 espacioPadreRouter.get("/", jwtAuth(), ctr.apiListEspaciosPadre);
 
 // POST routes
-espacioPadreRouter.post("/", validator(), ctr.apiCreateEspacioPadre);
+espacioPadreRouter.post("/", jwtAuth(), validator(), ctr.apiCreateEspacioPadre);
 
 export default espacioPadreRouter;

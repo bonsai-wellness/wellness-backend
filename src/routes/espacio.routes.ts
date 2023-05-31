@@ -8,13 +8,16 @@ import {
   validatorCreate,
   validatorParams,
 } from "../validator/espacio.validator";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioRouter = express.Router();
 
 // GET routes
-espacioRouter.get("/", ctr.apiListEspacios);
+espacioRouter.get("/", jwtAuth(), ctr.apiListEspacios);
+
 espacioRouter.get(
   "/espacio-padre/:id",
+  jwtAuth(),
   validatorParams,
   ctr.apiEspaciosByPadreId
 );
@@ -22,6 +25,7 @@ espacioRouter.get(
 // POST routes
 espacioRouter.post(
   "/",
+  jwtAuth(),
   uploadStrategy,
   validatorCreate,
   uploadToBlobStorage,
