@@ -4,12 +4,14 @@ import {
   validatorCreate,
   validatorParams,
 } from "../validator/espacioPuntoImportante.validator";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioPuntoImportanteRouter = express.Router();
 
 // GET routes
 espacioPuntoImportanteRouter.get(
   "/:id",
+  jwtAuth(),
   validatorParams(),
   ctr.apiPuntosImportantesByEspacioId
 );
@@ -17,6 +19,7 @@ espacioPuntoImportanteRouter.get(
 // POST routes
 espacioPuntoImportanteRouter.post(
   "/",
+  jwtAuth(),
   validatorCreate(),
   ctr.apiCreateEspacioPuntoImportante
 );

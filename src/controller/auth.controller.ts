@@ -16,6 +16,7 @@ export const googleAuthSuccess = async (req: any, res: Response) => {
   const payload = {
     id: req.user.id_user,
     email: req.user.email,
+    is_admin: req.user.is_admin
   };
 
   const token = jwt.sign(

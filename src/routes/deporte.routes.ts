@@ -5,15 +5,17 @@ import {
 } from "../middleware/azure.middleware";
 import { validator } from "../validator/deporte.validator";
 import * as ctr from "../controller/deporte.controller";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const deporteRouter = express.Router();
 
 // GET Routes
-deporteRouter.get("/", ctr.apiGetAllDeportes);
+deporteRouter.get("/", jwtAuth(), ctr.apiGetAllDeportes);
 
 // POST Routes
 deporteRouter.post(
   "/",
+  jwtAuth(),
   uploadStrategy,
   validator,
   uploadToBlobStorage,
