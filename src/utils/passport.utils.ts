@@ -15,9 +15,8 @@ passport.use(
       callbackURL:
         process.env.CUSTOMCONNSTR_GOOGLE_CALLBACK_URL ||
         "http://localhost:8000/api/auth/google/callback",
-      passReqToCallback: true,
     },
-    async function (_req, _accessToken, _refreshToken, profile, done) {
+    async (_accessToken, _refreshToken, profile, done) => {
       try {
         // If user exists
         const user = await db.user.findUnique({
@@ -43,19 +42,3 @@ passport.use(
     }
   )
 );
-
-passport.serializeUser(function (user: any, done) {
-  done(null, user.google_id);
-});
-
-passport.deserializeUser(async function (user: any, done) {
-  try {
-    const findUser = await db.user.findUnique({
-      where: { google_id: user },
-    });
-    // Pass the retrieved user data to the callback
-    done(null, findUser);
-  } catch (error) {
-    done(error);
-  }
-});

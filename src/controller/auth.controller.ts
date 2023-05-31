@@ -1,33 +1,38 @@
 import { Request, Response } from "express";
+import * as jwt from "jsonwebtoken";
 require("dotenv").config();
 
 export const googleLanding = async (_req: Request, res: Response) => {
   res.send('<a href="/api/auth/google">Authenticate with Google</a>');
 };
 
-export const closePopUp = async (_req: Request, res: Response) => {
-  const statusCode = 200;
+export const googleAuthSuccess = async (req: any, res: Response) => {
   const popupUrl = process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200";
-  // Send the response to the pop-up window
-  res.send(`
+  
+  if (!req.user) {
+    return res.status(500).json({ error: "Error with token" });
+  }
+
+  const payload = {
+    id: req.user.id_user,
+    email: req.user.email,
+  };
+
+  const token = jwt.sign(
+    payload,
+    process.env.CUSTOMCONNSTR_JWT_SECRET as string,
+    { expiresIn: "1d" }
+  );
+
+  return res.send(`
     <script>
-      window.opener.postMessage({ statusCode: ${statusCode} }, '${popupUrl}');
+      const statusCode = 200;
+      const jwtToken = '${token}';
+      const data = { statusCode, jwtToken };
+      window.opener.postMessage(data, '${popupUrl}');
     </script>
   `);
-};
 
-export const googleLogout = async (req: any, res: Response) => {
-  req.logout((err: any) => {
-    if (err) {
-      return res.status(500).json({ message: err });
-    }
-    req.session.destroy();
-    return res.status(200).json({ message: "Logut successfull" });
-  });
-};
-
-export const googleAuthFail = async (_req: Request, res: Response) => {
-  res.status(500).json({ message: "Failed to authenticate with Google" });
 };
 
 export const getUser = async (req: Request, res: Response) => {

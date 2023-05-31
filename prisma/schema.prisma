@@ -177,10 +177,3 @@ model WellnessLog {
   wellness_id     Int
   wellness        WellnessGym @relation(fields: [wellness_id], references: [wellnsess_gym_id])
 }
-
-model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String
-  expiresAt DateTime
-}
