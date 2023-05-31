@@ -7,15 +7,8 @@ export const googleLanding = async (_req: Request, res: Response) => {
 };
 
 export const googleAuthSuccess = async (req: any, res: Response) => {
-  // const statusCode = 200;
-  // const popupUrl = process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200";
-  // Send the response to the pop-up window
-  // res.send(`
-  //   <script>
-  //     window.opener.postMessage({ statusCode: ${statusCode} }, '${popupUrl}');
-  //   </script>
-  // `);
-
+  const popupUrl = process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200";
+  
   if (!req.user) {
     return res.status(500).json({ error: "Error with token" });
   }
@@ -31,7 +24,15 @@ export const googleAuthSuccess = async (req: any, res: Response) => {
     { expiresIn: "1d" }
   );
 
-  return res.status(200).json({ access_token: "Bearer " + token });
+  return res.send(`
+    <script>
+      const statusCode = 200;
+      const jwtToken = '${token}';
+      const data = { statusCode, jwtToken };
+      window.opener.postMessage(data, '${popupUrl}');
+    </script>
+  `);
+
 };
 
 export const getUser = async (req: Request, res: Response) => {
