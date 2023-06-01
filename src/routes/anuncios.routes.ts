@@ -5,15 +5,17 @@ import {
 } from "../middleware/azure.middleware";
 import { validator } from "../validator/anuncio.validator";
 import * as ctr from "../controller/anuncios.controller";
+import { jwtAuth } from "../middleware/auth.middleware";
 
 const anunciosRouter = express.Router();
 
 // GET Routes
-anunciosRouter.get("/", ctr.apiGetAllAnuncios);
+anunciosRouter.get("/", jwtAuth(), ctr.apiGetAllAnuncios);
 
 // POST Routes
 anunciosRouter.post(
 	"/",
+	jwtAuth(),
 	uploadStrategy,
 	validator,
 	uploadToBlobStorage,
@@ -21,6 +23,6 @@ anunciosRouter.post(
 );
 
 // DELETE routes
-anunciosRouter.delete("/:id", ctr.apiDeleteAnuncio);
+anunciosRouter.delete("/:id", jwtAuth(), ctr.apiDeleteAnuncio);
 
 export default anunciosRouter;
