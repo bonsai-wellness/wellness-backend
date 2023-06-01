@@ -6,7 +6,11 @@ const reservationRouter = express.Router();
 
 // GET routes
 reservationRouter.get("/", jwtAuth(), ctr.apiListAvailableSlots);
-reservationRouter.get("/all", jwtAuth(), ctr.apiGetReservation)
+reservationRouter.get("/all", jwtAuth(), ctr.apiGetReservation);
+reservationRouter.get("/user", jwtAuth(), ctr.apiGetUserReservation);
+reservationRouter.get("/today/:espacio_id", jwtAuth(), ctr.apiAdminGetTodayReservation);
+reservationRouter.get("/past/:espacio_id", jwtAuth(), ctr.apiAdminGetPastReservation);
+reservationRouter.get("/next/:espacio_id", jwtAuth(), ctr.apiAdminGetNextReservation);
 
 // POST routes
 reservationRouter.post("/", jwtAuth(), ctr.apiCreateReservation);
