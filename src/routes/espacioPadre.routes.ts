@@ -9,9 +9,16 @@ const espacioPadreRouter = express.Router();
 
 espacioPadreRouter.get("/", jwtAuth(), ctr.apiListEspaciosPadre);
 
-espacioPadreRouter.get("/deporte/:id", jwtAuth(), ctr.apiListEspaciosPadreByDeporte);
+espacioPadreRouter.get(
+	"/deporte/:id",
+	jwtAuth(),
+	ctr.apiListEspaciosPadreByDeporte
+);
 
 // POST routes
 espacioPadreRouter.post("/", jwtAuth(), validator(), ctr.apiCreateEspacioPadre);
+
+// DELETE routes
+espacioPadreRouter.delete("/:id", jwtAuth(), ctr.apiDeleteEspacioPadre);
 
 export default espacioPadreRouter;
