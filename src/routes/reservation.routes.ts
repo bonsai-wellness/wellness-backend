@@ -15,4 +15,7 @@ reservationRouter.get("/next/:espacio_id", jwtAuth(), ctr.apiAdminGetNextReserva
 // POST routes
 reservationRouter.post("/", jwtAuth(), ctr.apiCreateReservation);
 
+// DELETE routes
+reservationRouter.delete("/:reservation_id", jwtAuth(), ctr.apiCancelReservation);
+
 export default reservationRouter;

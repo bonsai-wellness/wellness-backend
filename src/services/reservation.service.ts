@@ -19,6 +19,12 @@ export const createReservation = async (
   return newReservation;
 };
 
+export const cancelReservation = async (reservation_id :number) => {
+  await db.reservationUser.deleteMany({ where: { reservation_id }});
+  const reservation = await db.reservation.delete({where: { reservation_id }});
+  return reservation;
+}
+
 export const listAllReservaciones = async (): Promise<any[]> => {
   const reservaciones: any[] = await db.reservation.findMany();
   reservaciones.forEach((reservacion) => {
