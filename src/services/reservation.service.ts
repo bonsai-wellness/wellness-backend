@@ -32,7 +32,7 @@ export const listAllReservaciones = async (): Promise<any[]> => {
 export const listTodayReservationsByEspacioId = async (espacio_id: number) => {
   const reservaciones: any[] = await db.$queryRaw`
     DECLARE @DateTimeInMexicoCity DATETIMEOFFSET = SWITCHOFFSET(CONVERT(DATETIMEOFFSET, GETDATE()), '-06:00');
-    SELECT R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
+    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
     FROM ReservationUser
     LEFT JOIN [User] U on U.id_user = ReservationUser.user_id
     LEFT JOIN Reservation R2 on R2.reservation_id = ReservationUser.reservation_id
@@ -51,7 +51,7 @@ export const listTodayReservationsByEspacioId = async (espacio_id: number) => {
 export const listNextReservationsByEspacioId = async (espacio_id: number) => {
   const reservaciones: any[] = await db.$queryRaw`
     DECLARE @DateTimeInMexicoCity DATETIMEOFFSET = SWITCHOFFSET(CONVERT(DATETIMEOFFSET, GETDATE()), '-06:00');
-    SELECT R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
+    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
     FROM ReservationUser
     LEFT JOIN [User] U on U.id_user = ReservationUser.user_id
     LEFT JOIN Reservation R2 on R2.reservation_id = ReservationUser.reservation_id
@@ -70,7 +70,7 @@ export const listNextReservationsByEspacioId = async (espacio_id: number) => {
 export const listPastReservationsByEspacioId = async (espacio_id: number) => {
   const reservaciones: any[] = await db.$queryRaw`
     DECLARE @DateTimeInMexicoCity DATETIMEOFFSET = SWITCHOFFSET(CONVERT(DATETIMEOFFSET, GETDATE()), '-06:00');
-    SELECT R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
+    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
     FROM ReservationUser
     LEFT JOIN [User] U on U.id_user = ReservationUser.user_id
     LEFT JOIN Reservation R2 on R2.reservation_id = ReservationUser.reservation_id
