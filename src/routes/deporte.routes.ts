@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  uploadStrategy,
-  uploadToBlobStorage,
+	uploadStrategy,
+	uploadToBlobStorage,
 } from "../middleware/azure.middleware";
 import { validator } from "../validator/deporte.validator";
 import * as ctr from "../controller/deporte.controller";
@@ -14,12 +14,15 @@ deporteRouter.get("/", jwtAuth(), ctr.apiGetAllDeportes);
 
 // POST Routes
 deporteRouter.post(
-  "/",
-  jwtAuth(),
-  uploadStrategy,
-  validator,
-  uploadToBlobStorage,
-  ctr.apiCreateDeporte
+	"/",
+	jwtAuth(),
+	uploadStrategy,
+	validator,
+	uploadToBlobStorage,
+	ctr.apiCreateDeporte
 );
+
+// DELETE routes
+deporteRouter.delete("/:id", jwtAuth(), ctr.apiDeleteDeporte);
 
 export default deporteRouter;

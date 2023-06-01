@@ -3,11 +3,21 @@ import { db } from "../utils/db.server";
 import { PuntoImportanteCreate } from "../types";
 
 export const listPuntoImportante = async (): Promise<PuntoImportante[]> => {
-  return db.puntoImportante.findMany();
+	return db.puntoImportante.findMany();
 };
 
 export const createPuntoImportante = async (
-  puntoImportante: PuntoImportanteCreate
+	puntoImportante: PuntoImportanteCreate
 ): Promise<PuntoImportante> => {
-  return db.puntoImportante.create({ data: puntoImportante });
+	return db.puntoImportante.create({ data: puntoImportante });
+};
+
+export const deletePuntoImportante = async (
+	id: number
+): Promise<PuntoImportante> => {
+	return db.puntoImportante.delete({
+		where: {
+			punto_importante_id: id,
+		},
+	});
 };
