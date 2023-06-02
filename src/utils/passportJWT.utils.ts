@@ -9,13 +9,18 @@ const opts = {
 
 passport.use(
   new JwtStrategy(opts, async (payload, done) => {
-    const user = await db.user.findUnique({
-      where: { id_user: payload.id },
-    });
-    if (user) {
-      return done(null, user);
-    } else {
-      return done(null, false);
+    try {
+      const user = await db.user.findUnique({
+        where: { id_user: payload.id },
+      });
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    } catch(err) {
+      return done(err, false);
     }
+    
   })
 );
