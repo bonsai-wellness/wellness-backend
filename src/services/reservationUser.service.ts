@@ -17,7 +17,7 @@ export const createReservationUser = async (
 export const listUserReservations = async (id_user: number) => {
   const reservations: any[] = await db.$queryRaw`
     DECLARE @DateTimeInMexicoCity DATETIMEOFFSET = SWITCHOFFSET(CONVERT(DATETIMEOFFSET, GETDATE()), '-06:00');
-    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name,E.espacio_id, E.name, EP.name, EP.code, EP.map_url
+    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name, E.espacio_id, E.name AS ename, EP.name, EP.code, EP.map_url
     FROM ReservationUser
     LEFT JOIN [User] U on U.id_user = ReservationUser.user_id
     LEFT JOIN Reservation R2 on R2.reservation_id = ReservationUser.reservation_id
