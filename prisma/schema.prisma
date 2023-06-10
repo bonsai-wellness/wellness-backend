@@ -81,6 +81,8 @@ model Espacio {
   EspacioDeporte         EspacioDeporte[]
   EspacioPuntoImportante EspacioPuntoImportante[]
   Reservation            Reservation[]
+
+  @@index([espacio_padre_id])
 }
 
 model Deporte {
@@ -134,6 +136,8 @@ model Reservation {
   booked_time     Int
   espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])
   ReservationUser ReservationUser[]
+
+  @@index([espacio_id])
 }
 
 model ReservationUser {
@@ -145,6 +149,8 @@ model ReservationUser {
   user           User        @relation(fields: [user_id], references: [id_user])
 
   @@id([reservation_id, user_id])
+  @@index([reservation_id])
+  @@index([user_id])
 }
 
 model WellnessGym {
