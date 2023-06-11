@@ -137,6 +137,8 @@ model Reservation {
   espacio         Espacio           @relation(fields: [espacio_id], references: [espacio_id])
   ReservationUser ReservationUser[]
 
+  @@index([espacio_id, date])
+  @@index([espacio_id, date(sort: Desc)], map: "Reservation_espacio_id_dateDESC_idx")
   @@index([espacio_id])
 }
 
