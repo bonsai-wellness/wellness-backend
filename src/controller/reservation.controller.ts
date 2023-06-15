@@ -7,7 +7,8 @@ import {
   listNextReservationsByEspacioId,
   listPastReservationsByEspacioId,
   listTodayReservationsByEspacioId,
-  cancelReservation
+  cancelReservation, 
+  listAllReservationsToday,
 } from "../services/reservation.service";
 import {
   getReservationsByEspacio,
@@ -126,3 +127,17 @@ export const apiAdminGetPastReservation = async (req: any, res: Response) => {
     return res.status(500).json(err.message);
   }
 };
+
+export const getAllReservations = async (req: any, res: Response) => {
+  try {
+    const requestT = req.params.requestT;
+    requestT === "today"
+    const reservaciones = await listAllReservationsToday();
+    return res.status(200).json(reservaciones);
+  }
+  catch (err: any) {
+    return res.status(500).json(err.message);
+  }
+}
+
+
