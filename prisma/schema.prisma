@@ -155,6 +155,7 @@ model WellnessGym {
   capacidad_max    Int
   WellnessLog      WellnessLog[]
   WellnessSchedule WellnessSchedule[]
+            
 }
 
 model WellnessSchedule {

@@ -7,6 +7,7 @@ const wellnessLogRouter = express.Router();
 
 // GET routes
 wellnessLogRouter.get("/", jwtAuth(), ctr.apiListWellnessLog);
+wellnessLogRouter.get("/total", jwtAuth(), ctr.apiTotalWellnessLog);
 
 // POST routes
 wellnessLogRouter.post("/", validator(), ctr.apiCreateWellnessLog);

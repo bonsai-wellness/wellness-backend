@@ -12,6 +12,16 @@ export const apiListWellnessLog = async (_req: Request, res: Response) => {
   }
 };
 
+// function that returns the total number of I and O 
+export const apiTotalWellnessLog = async (_req: Request, res: Response) => {
+  try {
+    const total = await service.totalWellnessLog();
+    res.status(201).json(total);
+  } catch (err: any) {
+    res.status(500).json(err.message);
+  }
+};
+
 export const apiCreateWellnessLog = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

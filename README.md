@@ -42,6 +42,7 @@ Requires `.env` file with following parameters:
 | CREATE  | POST | /api/espacio-deporte | Creates **EspacioDeporte** row |
 | READ  | GET | /api/espacio-deporte/:id | Returns `JSON` with all **Deporte** rows with given deporte_id |
 
+
 ## Reference
 
 ### Get list with all Espacio rows
