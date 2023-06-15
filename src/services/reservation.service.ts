@@ -92,6 +92,27 @@ export const listPastReservationsByEspacioId = async (espacio_id: number) => {
   return reservaciones;
 };
 
+// function that lists all reservations for today
+export const listAllReservationsToday = async () => {
+  const reservaciones: any[] = await db.$queryRaw`
+    DECLARE @DateTimeInMexicoCity DATETIMEOFFSET = SWITCHOFFSET(CONVERT(DATETIMEOFFSET, GETDATE()), '-06:00');
+    SELECT ReservationUser.reservation_id, R2.start_time, R2.end_time, R2.date, U.name as u_name, E.espacio_id, E.name, EP.name, EP.code, EP.map_url
+    FROM ReservationUser
+    LEFT JOIN [User] U on U.id_user = ReservationUser.user_id
+    LEFT JOIN Reservation R2 on R2.reservation_id = ReservationUser.reservation_id 
+    LEFT JOIN Espacio E on E.espacio_id = R2.espacio_id
+    LEFT JOIN EspacioPadre EP on E.espacio_padre_id = EP.espacio_padre_id
+    WHERE R2.date = CONVERT(DATE, @DateTimeInMexicoCity)
+  `;
+  reservaciones.forEach((reservacion) => {
+    reservacion.date = reservacion.date.toISOString().slice(0, 10);
+    reservacion.start_time = reservacion.start_time.toTimeString().slice(0, 8);
+    reservacion.end_time = reservacion.end_time.toTimeString().slice(0, 8);
+  });
+  return reservaciones;
+};
+
+    
 // Helper functions
 
 function formatTime(date: Date): string {
