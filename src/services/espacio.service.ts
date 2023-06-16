@@ -29,9 +29,32 @@ export const createEspacio = async (
 };
 
 export const deleteEspacio = async (id: number): Promise<Espacio> => {
-	return db.espacio.delete({
+
+	const deletePunto = db.espacioPuntoImportante.deleteMany({
+		where: {
+			espacio_id: id,
+		}
+	})
+
+	const deleteDeporte = db.espacioDeporte.deleteMany({
+		where: {
+			espacio_id: id,
+		}
+	})
+
+	const deleteReservation = db.reservation.deleteMany({
+		where: {
+			espacio_id: id,
+		}
+	})
+
+	const deleteEspacio = db.espacio.delete({
 		where: {
 			espacio_id: id,
 		},
 	});
+
+	const result = await db.$transaction([deletePunto, deleteDeporte, deleteReservation, deleteEspacio]);
+	return result[3]
+
 };
