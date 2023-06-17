@@ -12,9 +12,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioRouter = express.Router();
 
-// GET routes
+// GET - Lista de Espacios
 espacioRouter.get("/", jwtAuth(), ctr.apiListEspacios);
 
+// GET - Lista de Espacios por ID
 espacioRouter.get(
 	"/espacio-padre/:id",
 	jwtAuth(),
@@ -22,7 +23,7 @@ espacioRouter.get(
 	ctr.apiEspaciosByPadreId
 );
 
-// POST routes
+// POST - Crear Espacio Padre
 espacioRouter.post(
 	"/",
 	jwtAuth(),
@@ -32,7 +33,7 @@ espacioRouter.post(
 	ctr.apiCreateEspacio
 );
 
-// DELETE routes
+// DELETE - Borrar espacio por ID
 espacioRouter.delete("/:id", jwtAuth(), ctr.apiDeleteEspacio);
 
 export default espacioRouter;

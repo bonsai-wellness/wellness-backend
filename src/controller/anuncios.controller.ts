@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { createAnuncio, getAllAnuncios, deleteAnuncio } from "../services/anuncio.service";
 import { AnuncioCreate } from "../types";
 
+// Controller - Lista de Anuncios
 export const apiGetAllAnuncios = async (_req: Request, res: Response) => {
 	try {
 		const anuncios = await getAllAnuncios();
@@ -11,6 +12,7 @@ export const apiGetAllAnuncios = async (_req: Request, res: Response) => {
 	}
 };
 
+// Controller - Crear Anuncio
 export const apiCreateAnuncio = async (req: Request, res: Response) => {
 	try {
 		req.body.imagen = req.body.finalName;
@@ -28,6 +30,7 @@ export const apiCreateAnuncio = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Borrar Anuncio
 export const apiDeleteAnuncio = async (req: Request, res: Response) => {
 	const id = parseInt(req.params.id);
 	try {

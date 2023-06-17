@@ -9,10 +9,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const anunciosRouter = express.Router();
 
-// GET Routes
+// GET - Todos los Anuncios
 anunciosRouter.get("/", jwtAuth(), ctr.apiGetAllAnuncios);
 
-// POST Routes
+// POST - Crear Anuncio
 anunciosRouter.post(
 	"/",
 	jwtAuth(),
@@ -22,7 +22,7 @@ anunciosRouter.post(
 	ctr.apiCreateAnuncio
 );
 
-// DELETE routes
+// DELETE - Borrar Anuncio
 anunciosRouter.delete("/:id", jwtAuth(), ctr.apiDeleteAnuncio);
 
 export default anunciosRouter;

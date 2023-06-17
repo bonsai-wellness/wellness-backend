@@ -6,6 +6,7 @@ import {
 } from "../services/deporte.service";
 import { DeporteCreate } from "../types";
 
+// Controller - Lista de Deportes
 export const apiGetAllDeportes = async (_req: Request, res: Response) => {
 	try {
 		const espacios = await getAllDeportes();
@@ -15,6 +16,7 @@ export const apiGetAllDeportes = async (_req: Request, res: Response) => {
 	}
 };
 
+// Controller - Crear Deporte
 export const apiCreateDeporte = async (req: Request, res: Response) => {
 	try {
 		req.body.imagen = req.body.finalName;
@@ -29,6 +31,7 @@ export const apiCreateDeporte = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Borrar Deporte
 export const apiDeleteDeporte = async (req: Request, res: Response) => {
 	const id = parseInt(req.params.id);
 	try {

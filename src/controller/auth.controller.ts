@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 require("dotenv").config();
 
+// Controller - Pagina Para Google Auth
 export const googleLanding = async (_req: Request, res: Response) => {
   res.send('<a href="/api/auth/google">Authenticate with Google</a>');
 };
 
+// Controller - Redireccionamiento en Auth de Google
 export const googleAuthSuccess = async (req: any, res: Response) => {
   const popupUrl = process.env.CUSTOMCONNSTR_ANGULAR_BASE_URL || "http://localhost:4200";
   
@@ -36,6 +38,7 @@ export const googleAuthSuccess = async (req: any, res: Response) => {
 
 };
 
+// Controller - Trae usuario de token recivido
 export const getUser = async (req: Request, res: Response) => {
   res.status(200).json(req.user);
 };

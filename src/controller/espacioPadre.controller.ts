@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import type { Request, Response } from "express";
 import * as service from "../services/espacioPadre.service";
 
+// Controller - Lista de Espacios Padre
 export const apiListEspaciosPadre = async (_req: Request, res: Response) => {
 	try {
 		const espaciosPadre = await service.listEspaciosPadre();
@@ -11,6 +12,7 @@ export const apiListEspaciosPadre = async (_req: Request, res: Response) => {
 	}
 };
 
+// Controller - Lista Espacios Padre filtrados por deporte_id
 export const apiListEspaciosPadreByDeporte = async (
 	req: Request,
 	res: Response
@@ -24,6 +26,7 @@ export const apiListEspaciosPadreByDeporte = async (
 	}
 };
 
+// Controller - Crear Espacio Padre
 export const apiCreateEspacioPadre = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -38,6 +41,7 @@ export const apiCreateEspacioPadre = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Borrar Espacio Padre
 export const apiDeleteEspacioPadre = async (req: Request, res: Response) => {
 	const id = parseInt(req.params.id);
 	try {

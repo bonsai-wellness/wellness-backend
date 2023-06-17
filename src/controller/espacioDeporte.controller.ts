@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import * as service from "../services/espacioDeporte.service";
 
+// Controller - Crear EspacioDeporte
 export const apiCreateEspacioDeporte = async (req: Request, res: Response) => {
   const allowedFields = ["deporte_id", "espacio_id"];
   const receivedFields = Object.keys(req.body);
@@ -26,6 +27,7 @@ export const apiCreateEspacioDeporte = async (req: Request, res: Response) => {
   }
 };
 
+// Controller - Lista Espacios filtrador por deporte_id
 export const apiEspaciosByDeporteId = async (req: Request, res: Response) => {
   // Validation (params)
   const errors = validationResult(req);

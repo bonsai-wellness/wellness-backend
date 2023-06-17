@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import * as service from "../services/espacio.service";
 import { stringToTime } from "../utils/stringToDate.utils";
 
+// Controller - Lista de Espacios
 export const apiListEspacios = async (_req: Request, res: Response) => {
 	try {
 		const espacios = await service.listEspacios();
@@ -13,6 +14,7 @@ export const apiListEspacios = async (_req: Request, res: Response) => {
 	}
 };
 
+// Controller - Lista de Espacios filtrado por espacio_padre_id
 export const apiEspaciosByPadreId = async (req: Request, res: Response) => {
 	// Validation (params)
 	const errors = validationResult(req);
@@ -28,6 +30,7 @@ export const apiEspaciosByPadreId = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Crear Espacio
 export const apiCreateEspacio = async (req: Request, res: Response) => {
 	try {
 		req.body.imagen = req.body.finalName;
@@ -51,6 +54,7 @@ export const apiCreateEspacio = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Borrar espacio
 export const apiDeleteEspacio = async (req: Request, res: Response) => {
 	const id = parseInt(req.params.id);
 	try {

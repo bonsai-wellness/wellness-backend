@@ -5,8 +5,10 @@ require("dotenv").config();
 
 const router = express.Router();
 
+// GET - Pagina Auth de Google
 router.get("/", ctr.googleLanding);
 
+// GET - Iniciar Auth de Google
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -15,12 +17,14 @@ router.get(
   })
 );
 
+// GET - Callback Auth de Google
 router.get(
   "/google/callback/",
   passport.authenticate("google", { session: false }),
   ctr.googleAuthSuccess
 );
 
+// GET - Usuario con Sesion Iniciada
 router.get("/user", passport.authenticate('jwt', { session: false }), ctr.getUser);
 
 export default router;

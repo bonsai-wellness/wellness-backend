@@ -8,7 +8,7 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioPuntoImportanteRouter = express.Router();
 
-// GET routes
+// GET - Lista puntos importantes por espacio_id
 espacioPuntoImportanteRouter.get(
   "/:id",
   jwtAuth(),
@@ -16,7 +16,7 @@ espacioPuntoImportanteRouter.get(
   ctr.apiPuntosImportantesByEspacioId
 );
 
-// POST routes
+// POST - Crear espacioPuntoImportante
 espacioPuntoImportanteRouter.post(
   "/",
   jwtAuth(),

@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import type { Request, Response } from "express";
 import * as service from "../services/wellnessGym.service";
 
+// Controller - Trae Datos de Wellness Gym
 export const apiWellnessGymById = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
