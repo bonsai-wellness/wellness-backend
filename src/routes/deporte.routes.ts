@@ -9,10 +9,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const deporteRouter = express.Router();
 
-// GET Routes
+// GET - Lista de Deportes
 deporteRouter.get("/", jwtAuth(), ctr.apiGetAllDeportes);
 
-// POST Routes
+// POST - Crear Deporte
 deporteRouter.post(
 	"/",
 	jwtAuth(),
@@ -22,7 +22,7 @@ deporteRouter.post(
 	ctr.apiCreateDeporte
 );
 
-// DELETE routes
+// DELETE - Borrar Deporte por ID
 deporteRouter.delete("/:id", jwtAuth(), ctr.apiDeleteDeporte);
 
 export default deporteRouter;

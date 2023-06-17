@@ -8,10 +8,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioDeporteRouter = express.Router();
 
-// GET routes
+// GET - Lista de EspacioDeporte
 espacioDeporteRouter.get("/:id", jwtAuth(), validatorParams(), ctr.apiEspaciosByDeporteId);
 
-// POST routes
+// POST - Crear EspacioDeporte
 espacioDeporteRouter.post("/", jwtAuth(), validatorCreate(), ctr.apiCreateEspacioDeporte);
 
 export default espacioDeporteRouter;

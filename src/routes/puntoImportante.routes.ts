@@ -5,10 +5,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const puntoImportanteRouter = express.Router();
 
-// GET routes
+// GET - Lista de Puntos Importantes
 puntoImportanteRouter.get("/", jwtAuth(), ctr.apiListPuntoImportante);
 
-// POST routes
+// POST - Crear Punto Importante
 puntoImportanteRouter.post(
 	"/",
 	jwtAuth(),
@@ -16,7 +16,7 @@ puntoImportanteRouter.post(
 	ctr.apiCreatePuntoImportante
 );
 
-// DELETE routes
+// DELETE - Borrar punto importante
 puntoImportanteRouter.delete("/:id", jwtAuth(), ctr.apiDeletePuntoImportante);
 
 export default puntoImportanteRouter;

@@ -9,10 +9,10 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const torneoRouter = express.Router();
 
-// GET routes
+// GET - Lista de torneos
 torneoRouter.get("/", jwtAuth(), ctr.apiListTorneos);
 
-// POST routes
+// POST - Crear torneo
 torneoRouter.post(
   "/",
   jwtAuth(),
@@ -22,7 +22,7 @@ torneoRouter.post(
   ctr.apiCreateTorneo
 );
 
-// DELETE routes
+// DELETE - Borrar torneo
 torneoRouter.delete("/:id", jwtAuth(), ctr.apiDeleteTorneo);
 
 export default torneoRouter;

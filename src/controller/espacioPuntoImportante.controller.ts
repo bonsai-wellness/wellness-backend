@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import type { Request, Response } from "express";
 import * as service from "../services/espacioPuntoImportante.service";
 
+// Controller - Lista Puntos Importantes filtrado por espacio_id
 export const apiPuntosImportantesByEspacioId = async (
   req: Request,
   res: Response
@@ -20,6 +21,7 @@ export const apiPuntosImportantesByEspacioId = async (
   }
 };
 
+// Controller - Crear EspacioPuntoImportante
 export const apiCreateEspacioPuntoImportante = async (
   req: Request,
   res: Response

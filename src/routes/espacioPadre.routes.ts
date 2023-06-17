@@ -5,20 +5,20 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const espacioPadreRouter = express.Router();
 
-// GET routes
-
+// GET - Lista de Espacios Padre
 espacioPadreRouter.get("/", jwtAuth(), ctr.apiListEspaciosPadre);
 
+// GET - Lista de Espacios Padre por Deporte
 espacioPadreRouter.get(
 	"/deporte/:id",
 	jwtAuth(),
 	ctr.apiListEspaciosPadreByDeporte
 );
 
-// POST routes
+// POST - Crear Espacio Padre
 espacioPadreRouter.post("/", jwtAuth(), validator(), ctr.apiCreateEspacioPadre);
 
-// DELETE routes
+// DELETE - Borrar Espacio Padre
 espacioPadreRouter.delete("/:id", jwtAuth(), ctr.apiDeleteEspacioPadre);
 
 export default espacioPadreRouter;

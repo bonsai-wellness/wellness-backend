@@ -3,6 +3,7 @@ import * as service from "../services/wellnessLog.service";
 import { WellnessLogCreate } from "../types";
 import { validationResult } from "express-validator";
 
+// Controller - Lista de Logs de Entrada y Salida de Gimnasio
 export const apiListWellnessLog = async (_req: Request, res: Response) => {
   try {
     const wellnessLog = await service.listWellnessLog();
@@ -12,6 +13,7 @@ export const apiListWellnessLog = async (_req: Request, res: Response) => {
   }
 };
 
+// Controller - Registrar Entrada o Salida
 export const apiCreateWellnessLog = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

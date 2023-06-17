@@ -20,6 +20,7 @@ import {
   listUserReservations,
 } from "../services/reservationUser.service";
 
+// Controller - Lista de horarios disponibles por espacio
 export const apiListAvailableSlots = async (req: Request, res: Response) => {
   if (req.query.ids && req.query.date) {
     try {
@@ -38,6 +39,7 @@ export const apiListAvailableSlots = async (req: Request, res: Response) => {
   }
 };
 
+// Controller - Crear Reservacion
 export const apiCreateReservation = async (req: Request, res: Response) => {
   try {
     const { espacio_id, date, start_time, end_time } = req.body;
@@ -64,6 +66,7 @@ export const apiCreateReservation = async (req: Request, res: Response) => {
   }
 };
 
+// Controller - Cancelar Reservacion
 export const apiCancelReservation = async (req: Request, res: Response) => {
   try {
     const reservation_id = Number(req.params.reservation_id);
@@ -74,6 +77,7 @@ export const apiCancelReservation = async (req: Request, res: Response) => {
   }
 };
 
+// Controller - Traer reservaciones (end-point para testing)
 export const apiGetReservation = async (_req: Request, res: Response) => {
   try {
     const reservaciones = await listAllReservaciones();
@@ -83,6 +87,7 @@ export const apiGetReservation = async (_req: Request, res: Response) => {
   }
 };
 
+// Controller - Lista reservaciones de usuario
 export const apiGetUserReservation = async (req: any, res: Response) => {
   try {
     const reservaciones = await listUserReservations(Number(req.user.id_user));
@@ -92,6 +97,7 @@ export const apiGetUserReservation = async (req: any, res: Response) => {
   }
 };
 
+// Controller - Lista reservaciones de hoy por espacio_id
 export const apiAdminGetTodayReservation = async (req: any, res: Response) => {
   try {
     const espacio_id = req.params.espacio_id;
@@ -104,6 +110,7 @@ export const apiAdminGetTodayReservation = async (req: any, res: Response) => {
   }
 };
 
+// Controller - Lista reservaciones de manana en adelante por espacio_id
 export const apiAdminGetNextReservation = async (req: any, res: Response) => {
   try {
     const espacio_id = req.params.espacio_id;
@@ -116,6 +123,7 @@ export const apiAdminGetNextReservation = async (req: any, res: Response) => {
   }
 };
 
+// Controller - Lista reservaciones pasadas por espacio_id
 export const apiAdminGetPastReservation = async (req: any, res: Response) => {
   try {
     const espacio_id = req.params.espacio_id;
@@ -128,6 +136,7 @@ export const apiAdminGetPastReservation = async (req: any, res: Response) => {
   }
 };
 
+// Controller - Lista reservaciones recientes para dashboard
 export const getAllReservations = async (req: any, res: Response) => {
   try {
     const requestT = req.params.requestT;

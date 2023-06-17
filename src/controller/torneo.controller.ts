@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { TorneoCreate } from "../types";
 import * as service from "../services/torneo.service";
 
+// Controller - Lista de Torneos
 export const apiListTorneos = async (_req: Request, res: Response) => {
   try {
     const torneos = await service.listTorneos();
@@ -11,6 +12,7 @@ export const apiListTorneos = async (_req: Request, res: Response) => {
   }
 };
 
+// Controller - Crear Torneo
 export const apiCreateTorneo = async (req: Request, res: Response) => {
   try {
     req.body.imagen = req.body.finalName;
@@ -33,6 +35,7 @@ export const apiCreateTorneo = async (req: Request, res: Response) => {
   }
 };
 
+// Controller - Borrar Torneo
 export const apiDeleteTorneo = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   try {

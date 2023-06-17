@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import * as service from "../services/puntoImportante.service";
 import { validationResult } from "express-validator";
 
+// Controller - Lista de Puntos Importantes
 export const apiListPuntoImportante = async (_req: Request, res: Response) => {
 	try {
 		const puntosImportantes = await service.listPuntoImportante();
@@ -11,6 +12,7 @@ export const apiListPuntoImportante = async (_req: Request, res: Response) => {
 	}
 };
 
+// Controller - Crear Puntos Importantes
 export const apiCreatePuntoImportante = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -27,6 +29,7 @@ export const apiCreatePuntoImportante = async (req: Request, res: Response) => {
 	}
 };
 
+// Controller - Borrar Puntos Importantes
 export const apiDeletePuntoImportante = async (req: Request, res: Response) => {
 	const id = parseInt(req.params.id);
 	try {

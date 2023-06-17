@@ -5,6 +5,7 @@ import { jwtAuth } from "../middleware/auth.middleware";
 
 const wellnessGymRouter = express.Router();
 
+// GET - Registro Gym por id
 wellnessGymRouter.get("/:id", jwtAuth(), validator(), ctr.apiWellnessGymById);
 
 export default wellnessGymRouter;
